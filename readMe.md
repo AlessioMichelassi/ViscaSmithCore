@@ -8,3 +8,9 @@ Key Features:
     Quick Start: Check example01 for a step-by-step implementation.
 
 Whether you're controlling a physical camera or an emulated one, this utility makes the process seamless. Perfect for developers working on broadcasting, streaming, or robotics projects.
+
+to use this library, you need to install the following dependencies:
+
+pip install -r requirements.txt
+
+There is a ton of documentation in the doc folder, so make sure to check it out!
