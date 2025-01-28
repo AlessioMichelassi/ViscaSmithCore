@@ -1,2 +1,11 @@
 # Project exclude paths
-/mainDir/visca/client/OLD/
+# .gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.bak
+OLD/
