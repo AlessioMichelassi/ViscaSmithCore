@@ -1,5 +1,5 @@
 Metadata-Version: 2.2
-Name: viscaSmithCore
+Name: viscaSmith
 Version: 0.4.1
 Summary: Una libreria per controllare telecamere VISCA tramite UDP
 Home-page: https://github.com/AlessioMichelassi/ViscaSmithCore
