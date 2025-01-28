@@ -15,14 +15,14 @@ Whether you're controlling a physical camera or an emulated one, this utility ma
 
 setup(
     name="viscaSmith",
-    version="0.4.2",
+    version="0.4.4",
     author="Alessio Michelassi",
     author_email="alessio.michelassi@gmail.com",
     description="Una libreria per controllare telecamere VISCA tramite UDP",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/AlessioMichelassi/ViscaSmithCore",
-    packages=find_packages(include=["visca_control", "visca_control.*"]),
+    packages=find_packages(include=["visca", "visca.*", "doc"]),
     include_package_data=True,  # Includi file non Python (es. JSON)
     install_requires=["PyQt6"],
     classifiers=[

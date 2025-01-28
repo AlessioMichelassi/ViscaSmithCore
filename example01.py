@@ -1,9 +1,9 @@
 from PyQt6.QtCore import QTimer
 from PyQt6.QtWidgets import QApplication
 
-from mainDir.visca.cameraObject import CameraObject
-from mainDir.visca.client.clientObject import ClientObject
-from mainDir.visca.dictionary.enumerations import ExposureModeEnum
+from visca import CameraObject
+from visca import ClientObject
+from visca import ExposureModeEnum
 
 if __name__ == '__main__':
     app = QApplication([])

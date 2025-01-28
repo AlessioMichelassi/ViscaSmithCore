@@ -1,7 +1,0 @@
-LICENSE.md
-setup.py
-viscaSmithCore.egg-info/PKG-INFO
-viscaSmithCore.egg-info/SOURCES.txt
-viscaSmithCore.egg-info/dependency_links.txt
-viscaSmithCore.egg-info/requires.txt
-viscaSmithCore.egg-info/top_level.txt

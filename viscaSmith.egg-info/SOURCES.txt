@@ -1,7 +1,0 @@
-LICENSE.md
-setup.py
-viscaSmith.egg-info/PKG-INFO
-viscaSmith.egg-info/SOURCES.txt
-viscaSmith.egg-info/dependency_links.txt
-viscaSmith.egg-info/requires.txt
-viscaSmith.egg-info/top_level.txt
