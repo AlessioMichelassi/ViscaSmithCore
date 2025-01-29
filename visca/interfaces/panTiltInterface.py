@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import panTiltDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -29,54 +29,54 @@ class PanTiltInterface(BaseInterfaceClass):
     def panTiltDriveUp(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_up", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveUp", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Down
     def panTiltDriveDown(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_down", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveDown", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Left
     def panTiltDriveLeft(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_left", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveLeft", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Right
     def panTiltDriveRight(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_right", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveRight", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Up-Left
     def panTiltDriveUpLeft(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_up_left", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveUpLeft", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Up-Right
     def panTiltDriveUpRight(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_up_right", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveUpRight", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Down-Left
     def panTiltDriveDownLeft(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_down_left", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveDownLeft", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Down-Right
     def panTiltDriveDownRight(self, pan_speed: int, tilt_speed: int):
         self._validate_speed(pan_speed, tilt_speed)
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_down_right", pan_speed, tilt_speed)
+        return self.processor.set("panTiltDriveDownRight", pan_speed, tilt_speed)
 
     # Pan-Tilt Drive Stop
     def panTiltDriveStop(self):
         self._last_command = None
-        return self.processor.set("pan_tilt_drive_stop", self.panTiltMemories.pan_speed, self.panTiltMemories.tilt_speed)
+        return self.processor.set("panTiltDriveStop", self.panTiltMemories.pan_speed, self.panTiltMemories.tilt_speed)
 
     # Pan-Tilt Absolute Position
     def panTiltAbsolutePosition(self, pan_speed: int, tilt_speed: int, pan_position: int, tilt_position: int):
@@ -85,7 +85,7 @@ class PanTiltInterface(BaseInterfaceClass):
         self.panTiltMemories.pan_position = pan_position
         self.panTiltMemories.tilt_position = tilt_position
         self._last_command = None
-        return self.processor.set("pan_tilt_absolute_position", pan_speed, tilt_speed, pan_position, tilt_position)
+        return self.processor.set("panTiltAbsolutePosition", pan_speed, tilt_speed, pan_position, tilt_position)
 
     # Pan-Tilt Relative Position
     def panTiltRelativePosition(self, pan_speed: int, tilt_speed: int, pan_position: int, tilt_position: int):
@@ -94,45 +94,39 @@ class PanTiltInterface(BaseInterfaceClass):
         self.panTiltMemories.pan_position = pan_position
         self.panTiltMemories.tilt_position = tilt_position
         self._last_command = None
-        return self.processor.set("pan_tilt_relative_position", pan_speed, tilt_speed, pan_position, tilt_position)
+        return self.processor.set("panTiltRelativePosition", pan_speed, tilt_speed, pan_position, tilt_position)
 
     # Pan-Tilt Home
     def panTiltHome(self):
         self._last_command = None
-        return self.processor.set("pan_tilt_home")
+        return self.processor.set("panTiltHome")
 
     # Pan-Tilt Reset
     def panTiltReset(self):
         self._last_command = None
-        return self.processor.set("pan_tilt_reset")
+        return self.processor.set("panTiltReset")
 
     # Pan-Tilt Ramp Curve
     def panTiltRampCurve(self, value: int):
-        if value not in self.command_map["pan_tilt_ramp_curve"]["allowed_values"]:
-            raise ValueError("Valore fuori range per Pan-Tilt Ramp Curve.")
         self._last_command = None
-        return self.processor.set("pan_tilt_ramp_curve", value)
+        return self.processor.set("panTiltRampCurve", value)
 
     # Pan-Tilt Slow
     def panTiltSlow(self, mode: EnableStateEnum):
         self._last_command = None
         self.panTiltMemories.pan_tilt_slowMode = mode
-        return self.processor.set("pan_tilt_slow", mode.value)
+        return self.processor.set("panTiltSlow", mode.value)
 
     # Pan-Tilt Limit Set
     def panTiltLimitSet(self, position: int, pan_position: int, tilt_position: int):
-        if position not in self.command_map["pan_tilt_limit_set"]["allowed_values"]["position"]:
-            raise ValueError("Posizione fuori range per Pan-Tilt Limit Set.")
         self._validate_position(pan_position, tilt_position)
         self._last_command = None
-        return self.processor.set("pan_tilt_limit_set", position, pan_position, tilt_position)
+        return self.processor.set("panTiltLimitSet", position, pan_position, tilt_position)
 
     # Pan-Tilt Limit Clear
     def panTiltLimitClear(self, position: int):
-        if position not in self.command_map["pan_tilt_limit_clear"]["allowed_values"]:
-            raise ValueError("Posizione fuori range per Pan-Tilt Limit Clear.")
         self._last_command = None
-        return self.processor.set("pan_tilt_limit_clear", position)
+        return self.processor.set("panTiltLimitClear", position)
 
     @staticmethod
     def _validate_position(pan_position: int, tilt_position: int):
@@ -143,6 +137,7 @@ class PanTiltInterface(BaseInterfaceClass):
 
 if __name__ == "__main__":
     panTiltMemories = PanTiltMemories()
+    panTiltDictionary = VISCADICTIONARY["PanTiltSettings"]
     interface = PanTiltInterface(panTiltMemories, panTiltDictionary)
 
     # Pan-Tilt Drive Up
@@ -182,7 +177,7 @@ if __name__ == "__main__":
     print("Pan-Tilt Slow (Disable):", interface.panTiltSlow(EnableStateEnum.OFF))
 
     # Pan-Tilt Limit Set
-    print("Pan-Tilt Limit Set:", interface.panTiltLimitSet(1, 0x1000, 0x0800))
+    #print("Pan-Tilt Limit Set:", interface.panTiltLimitSet(1, 0x1000, 0x0800))
 
     # Pan-Tilt Limit Clear
     print("Pan-Tilt Limit Clear:", interface.panTiltLimitClear(0))

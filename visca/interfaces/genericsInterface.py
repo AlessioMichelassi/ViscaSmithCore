@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import genericsDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -23,31 +23,31 @@ class GenericsInterface(BaseInterfaceClass):
     def setPictureProfile(self, mode: PictureProfileEnum):
         self._last_command = None
         self.genericsMemories.picture_profile = mode
-        return self.processor.set("picture_profile", mode.value)
+        return self.processor.set("pictureProfile", mode.value)
 
     def getPictureProfile(self):
-        self._last_command = "get picture_profile"
-        return self.processor.inquire("picture_profile")
+        self._last_command = "get pictureProfile"
+        return self.processor.inquire("pictureProfile")
 
     # Flicker Cancel
     def setFlickerCancel(self, enableState: EnableStateEnum):
         self._last_command = None
         self.genericsMemories.flicker_cancel = enableState
-        return self.processor.set("flicker_cancel", enableState.value)
+        return self.processor.set("flickerCancel", enableState.value)
 
     def getFlickerCancel(self):
-        self._last_command = "get flicker_cancel"
-        return self.processor.inquire("flicker_cancel")
+        self._last_command = "get flickerCancel"
+        return self.processor.inquire("flickerCancel")
 
     # Image Stabilizer
     def setImageStabilizer(self, enableState: EnableStateEnum):
         self._last_command = None
         self.genericsMemories.image_stabilizer = enableState
-        return self.processor.set("image_stabilizer", enableState.value)
+        return self.processor.set("imageStabilizer", enableState.value)
 
     def getImageStabilizer(self):
-        self._last_command = "get image_stabilizer"
-        return self.processor.inquire("image_stabilizer")
+        self._last_command = "get imageStabilizer"
+        return self.processor.inquire("imageStabilizer")
 
     # Defog
     def setDefog(self, state: EnableStateEnum, level: int):
@@ -65,11 +65,11 @@ class GenericsInterface(BaseInterfaceClass):
     def setHighResolution(self, mode: EnableStateEnum):
         self._last_command = None
         self.genericsMemories.high_resolution = mode
-        return self.processor.set("high_resolution", mode.value)
+        return self.processor.set("highResolution", mode.value)
 
     def getHighResolution(self):
-        self._last_command = "get high_resolution"
-        return self.processor.inquire("high_resolution")
+        self._last_command = "get highResolution"
+        return self.processor.inquire("highResolution")
 
     # Noise Reduction Level
     def setNoiseReductionLevel(self, level: NoiseReductionLevel):
@@ -82,11 +82,11 @@ class GenericsInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Noise Reduction Level.")
         self._last_command = None
         self.genericsMemories.noise_reduction = level
-        return self.processor.set("noise_reduction_level", level.value)
+        return self.processor.set("noiseReductionLevel", level.value)
 
     def getNoiseReductionLevel(self):
-        self._last_command = "get noise_reduction_level"
-        return self.processor.inquire("noise_reduction_level")
+        self._last_command = "get noiseReductionLevel"
+        return self.processor.inquire("noiseReductionLevel")
 
     # 2D/3D Noise Reduction
     def set2D3DNoiseReduction(self, nr_2d: NoiseReduction2DEnum, nr_3d: NoiseReduction3DEnum):
@@ -98,35 +98,36 @@ class GenericsInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.genericsMemories.n2D_3DNoiseReduction = {"2D": nr_2d, "3D": nr_3d}
-        return self.processor.set("2d_3d_nr", nr_2d.value, nr_3d.value)
+        return self.processor.set("2d3dNr", nr_2d.value, nr_3d.value)
 
     def get2D3DNoiseReduction(self):
-        self._last_command = "get 2d_3d_nr"
-        return self.processor.inquire("2d_3d_nr")
+        self._last_command = "get 2d3dNr"
+        return self.processor.inquire("2d3dNr")
 
     # Picture Effect
     def setPictureEffect(self, mode: PictureEffectEnum):
         self._last_command = None
         self.genericsMemories.picture_effect = mode
-        return self.processor.set("picture_effect", mode.value)
+        return self.processor.set("pictureEffect", mode.value)
 
     def getPictureEffect(self):
-        self._last_command = "get picture_effect"
-        return self.processor.inquire("picture_effect")
+        self._last_command = "get pictureEffect"
+        return self.processor.inquire("pictureEffect")
 
     # Color Bar
     def setColorBar(self, mode: EnableStateEnum):
         self._last_command = None
         self.genericsMemories.color_bar = mode
-        return self.processor.set("color_bar", mode.value)
+        return self.processor.set("colorBar", mode.value)
 
     def getColorBar(self):
-        self._last_command = "get color_bar"
-        return self.processor.inquire("color_bar")
+        self._last_command = "get colorBar"
+        return self.processor.inquire("colorBar")
 
 
 if __name__ == "__main__":
     genericMemories = GenericsMemories()
+    genericsDictionary = VISCADICTIONARY["GenericsSettings"]
     interface = GenericsInterface(genericMemories, genericsDictionary)
     print(interface.setPictureProfile(PictureProfileEnum.PP2))
     print(interface.getPictureProfile())

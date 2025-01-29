@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import gammaDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -21,11 +21,11 @@ class GammaInterface(BaseInterfaceClass):
     def setGammaSelect(self, mode: GammaLevelEnum):
         self._last_command = None
         self.gammaMemories.gamma_select = mode
-        return self.processor.set("gamma_select", mode.value)
+        return self.processor.set("gammaSelect", mode.value)
 
     def getGammaSelect(self):
-        self._last_command = "get gamma_select"
-        return self.processor.inquire("gamma_select")
+        self._last_command = "get gammaSelect"
+        return self.processor.inquire("gammaSelect")
 
     # Gamma Pattern
     def setGammaPatternValue(self, value: int):
@@ -33,11 +33,11 @@ class GammaInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Gamma Pattern Value.")
         self._last_command = None
         self.gammaMemories.gamma_pattern_value = value
-        return self.processor.set("gamma_pattern_value", value)
+        return self.processor.set("gammaPatternValue", value)
 
     def getGammaPatternValue(self):
-        self._last_command = "get gamma_pattern_value"
-        return self.processor.inquire("gamma_pattern_value")
+        self._last_command = "get gammaPatternValue"
+        return self.processor.inquire("gammaPatternValue")
 
     # Gamma Offset
     def setGammaOffsetValue(self, polarity: GammaPolarityEnum, _width: int):
@@ -53,11 +53,11 @@ class GammaInterface(BaseInterfaceClass):
         self._last_command = None
         self.gammaMemories.gamma_offset_value = {"polarity": polarity, "width":_width}
         _width += 64
-        return self.processor.set("gamma_offset_value", polarity.value, _width)
+        return self.processor.set("gammaOffsetValue", polarity.value, _width)
 
     def getGammaOffsetValue(self):
-        self._last_command = "get gamma_offset_value"
-        return self.processor.inquire("gamma_offset_value")
+        self._last_command = "get gammaOffsetValue"
+        return self.processor.inquire("gammaOffsetValue")
 
     # Gamma Level
     def setGammaLevelValue(self, value: int):
@@ -71,11 +71,11 @@ class GammaInterface(BaseInterfaceClass):
         self._last_command = None
         self.gammaMemories.gamma_level_value = value
         value += 7
-        return self.processor.set("gamma_level_value", value)
+        return self.processor.set("gammaLevelValue", value)
 
     def getGammaLevelValue(self):
-        self._last_command = "get gamma_level_value"
-        return self.processor.inquire("gamma_level_value")
+        self._last_command = "get gammaLevelValue"
+        return self.processor.inquire("gammaLevelValue")
 
     # Black Gamma Level
     def setBlackGammaLevelValue(self, value: int):
@@ -89,27 +89,27 @@ class GammaInterface(BaseInterfaceClass):
         self._last_command = None
         self.gammaMemories.black_gamma_level_value = value
         value += 7
-        return self.processor.set("black_gamma_level_value", value)
+        return self.processor.set("blackGammaLevelValue", value)
 
     def getBlackGammaLevelValue(self):
-        self._last_command = "get black_gamma_level_value"
-        return self.processor.inquire("black_gamma_level_value")
+        self._last_command = "get blackGammaLevelValue"
+        return self.processor.inquire("blackGammaLevelValue")
 
     # Black Gamma Range
     def setBlackGammaRangeValue(self, mode: BlackGammaRAngeEnum):
         self._last_command = None
         self.gammaMemories.black_gamma_range_value = mode
-        return self.processor.set("black_gamma_range_value", mode.value)
+        return self.processor.set("blackGammaRangeValue", mode.value)
 
     def getBlackGammaRangeValue(self):
-        self._last_command = "get black_gamma_range_value"
-        return self.processor.inquire("black_gamma_range_value")
+        self._last_command = "get blackGammaRangeValue"
+        return self.processor.inquire("blackGammaRangeValue")
 
     # Black Level
     def resetBlackLevel(self):
         self._last_command = None
         self.gammaMemories.black_level_value = 0
-        return self.processor.set("black_level_reset")
+        return self.processor.set("blackLevelReset")
 
     def blackLevelUp(self):
         self._last_command = None
@@ -117,14 +117,14 @@ class GammaInterface(BaseInterfaceClass):
             self.gammaMemories.black_level_value = 60
         self.gammaMemories.black_level_value += 1
 
-        return self.processor.set("black_level_up")
+        return self.processor.set("blackLevelUp")
 
     def blackLevelDown(self):
         self._last_command = None
         if self.gammaMemories.black_level_value < -60:
             self.gammaMemories.black_level_value = -60
         self.gammaMemories.black_level_value -= 1
-        return self.processor.set("black_level_down")
+        return self.processor.set("blackLevelDown")
 
     def setBlackLevelValue(self, value: int):
         """
@@ -137,14 +137,15 @@ class GammaInterface(BaseInterfaceClass):
         self._last_command = None
         self.gammaMemories.black_level_value = value
         value += 48
-        return self.processor.set("black_level_value", value)
+        return self.processor.set("blackLevelValue", value)
 
     def getBlackLevelValue(self):
-        self._last_command = "get black_level_value"
-        return self.processor.inquire("black_level_value")
+        self._last_command = "get blackLevelValue"
+        return self.processor.inquire("blackLevelValue")
 
 if __name__ == "__main__":
     gammaMemories = GammaMemories()
+    gammaDictionary = VISCADICTIONARY["GammaSettings"]
     gammaInterface = GammaInterface(gammaMemories, gammaDictionary)
     print(f"cmd setGammaSelect {GammaLevelEnum.STD}")
     print(gammaInterface.setGammaSelect(GammaLevelEnum.STD))

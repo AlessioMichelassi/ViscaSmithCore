@@ -1,4 +1,4 @@
-viscaDictionary = {
+VISCADICTIONARY = {
     "ExposureSettings": {
         "exposureMode": {
             "cmd": "04 39 pp",
@@ -7554,6 +7554,7 @@ viscaDictionary = {
                 13,
                 14
             ],
+            "inquire": "04 4F",
             "placeholder": [
                 "pp"
             ],

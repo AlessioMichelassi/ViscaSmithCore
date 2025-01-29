@@ -14,3 +14,9 @@ to use this library, you need to install the following dependencies:
 pip install -r requirements.txt
 
 There is a ton of documentation in the doc folder, so make sure to check it out!
+
+0.4.5 modifiche
+- c'era un errore dovuto all'uso del vecchio dizionario dove i comandi eranon nella forma white_balance_mode piuttosto che whiteBalanceMode. I nomi ora sono consistenti e sono stati testati tutti i comandi.
+
+Versione 0.4.4
+-E' stato sistemato l'errore che impediva di caricare correttamente il dizionario json.

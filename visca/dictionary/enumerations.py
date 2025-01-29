@@ -225,6 +225,13 @@ class AutoFocusSensitivityEnum(Enum):
     NORMAL = 2
     LOW = 3
 
+class AutoFocusOperationTime(Enum):
+    NORMAL = 0
+    INTERVAL = 1
+    ZOOM_TRIGGER = 2
+
+
+
 class IRCorrectionEnum(Enum):
     STANDARD = 0
     IRLIGHT = 1

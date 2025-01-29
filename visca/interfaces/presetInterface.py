@@ -1,6 +1,7 @@
-from visca.dictionary.dictionaries import presetDictionary
+
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 
 
 class PresetInterface(BaseInterfaceClass):
@@ -17,80 +18,63 @@ class PresetInterface(BaseInterfaceClass):
 
     # Reset Preset
     def resetPreset(self, preset_number: int):
-        if preset_number not in self.command_map["preset_reset"]["allowed_values"]:
-            raise ValueError("Preset number fuori range.")
-        return self.processor.set("preset_reset", preset_number)
+        return self.processor.set("presetReset", preset_number)
 
     def inquireResetPreset(self):
-        return self.processor.inquire("preset_reset")
+        return self.processor.inquire("presetReset")
 
     # Set Preset
     def setPreset(self, preset_number: int):
-        if preset_number not in self.command_map["preset_set"]["allowed_values"]:
-            raise ValueError("Preset number fuori range.")
-        return self.processor.set("preset_set", preset_number)
+        return self.processor.set("presetSet", preset_number)
 
     def inquireSetPreset(self):
-        return self.processor.inquire("preset_set")
+        return self.processor.inquire("presetSet")
 
     # Recall Preset
     def recallPreset(self, preset_number: int):
-        if preset_number not in self.command_map["preset_recall"]["allowed_values"]:
-            raise ValueError("Preset number fuori range.")
-        return self.processor.set("preset_recall", preset_number)
+        return self.processor.set("presetRecall", preset_number)
 
     def inquireRecallPreset(self):
-        return self.processor.inquire("preset_recall")
+        return self.processor.inquire("presetRecall")
 
     # Preset Speed Select
     def setPresetSpeedSelect(self, mode: int):
-        if mode not in self.command_map["preset_speed_select"]["allowed_values"]:
-            raise ValueError("Modalità di velocità non valida.")
-        return self.processor.set("preset_speed_select", mode)
+        return self.processor.set("presetSpeedSelect", mode)
 
     def inquirePresetSpeedSelect(self):
-        return self.processor.inquire("preset_speed_select")
+        return self.processor.inquire("presetSpeedSelect")
 
     # Preset Speed Separate
     def setPresetSpeedSeparate(self, preset_number: int, position_speed: int):
-        if preset_number not in self.command_map["preset_speed_separate"]["allowed_values"]["preset_number"]:
-            raise ValueError("Preset number fuori range.")
-        if position_speed not in self.command_map["preset_speed_separate"]["allowed_values"]["position_speed"]:
-            raise ValueError("Velocità posizione fuori range.")
-        return self.processor.set("preset_speed_separate", preset_number, position_speed)
+        return self.processor.set("presetSpeedSeparate", preset_number, position_speed)
 
     def inquirePresetSpeedSeparate(self):
-        return self.processor.inquire("preset_speed_separate")
+        return self.processor.inquire("presetSpeedSeparate")
 
     # Preset Speed Common
     def setPresetSpeedCommon(self, speed: int):
-        if speed not in self.command_map["preset_speed_common"]["allowed_values"]:
-            raise ValueError("Velocità comune fuori range.")
-        return self.processor.set("preset_speed_common", speed)
+        return self.processor.set("presetSpeedCommon", speed)
 
     def inquirePresetSpeedCommon(self):
-        return self.processor.inquire("preset_speed_common")
+        return self.processor.inquire("presetSpeedCommon")
 
     # Preset Mode
     def setPresetMode(self, mode: int):
-        if mode not in self.command_map["preset_mode"]["allowed_values"]:
-            raise ValueError("Modalità preset non valida.")
-        return self.processor.set("preset_mode", mode)
+        return self.processor.set("presetMode", mode)
 
     def inquirePresetMode(self):
-        return self.processor.inquire("preset_mode")
+        return self.processor.inquire("presetMode")
 
     # Preset Call Mode
     def setPresetCallMode(self, mode: int):
-        if mode not in self.command_map["preset_call_mode"]["allowed_values"]:
-            raise ValueError("Modo di richiamo preset non valido.")
-        return self.processor.set("preset_call_mode", mode)
+        return self.processor.set("presetCallMode", mode)
 
     def inquirePresetCallMode(self):
-        return self.processor.inquire("preset_call_mode")
+        return self.processor.inquire("presetCallMode")
 
 
 if __name__ == "__main__":
+    presetDictionary = VISCADICTIONARY["PresetSettings"]
     interface = PresetInterface(presetDictionary)
 
     # Esempi di utilizzo

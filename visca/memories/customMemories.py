@@ -1,5 +1,5 @@
 from visca.dictionary.enumerations import PictureProfileEnum
-from visca.interfaces.customInterface import *
+from visca.interfaces.avonicInterface import *
 
 
 class CustomMemories:

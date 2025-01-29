@@ -1,6 +1,7 @@
 import logging
 
-from visca.dictionary.dictionaries import colorDictionary
+
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.dataStucture.commandProcessor import CommandProcessor
 from visca.memories.colorMemories import ColorMemories
@@ -46,15 +47,15 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.whiteBalanceMode = mode
-        return self.processor.set("white_balance_mode", mode.value)
+        return self.processor.set("whiteBalanceMode", mode.value)
 
     def getWhiteBalanceMode(self):
-        self._last_command = "get white_balance_mode"
-        return self.processor.inquire("white_balance_mode")
+        self._last_command = "get whiteBalanceMode"
+        return self.processor.inquire("whiteBalanceMode")
 
     def onePushTrigger(self):
         self._last_command = None
-        return self.processor.set("one_push_trigger")
+        return self.processor.set("onePushTrigger")
 
     def setWBSpeed(self, value: int):
         """
@@ -71,11 +72,11 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.wbSpeed = value
-        return self.processor.set("wb_speed", value)
+        return self.processor.set("wbSpeed", value)
 
     def getWBSpeed(self):
-        self._last_command = "get wb_speed"
-        return self.processor.inquire("wb_speed")
+        self._last_command = "get wbSpeed"
+        return self.processor.inquire("wbSpeed")
 
     def setOffset(self, value : int):
         """
@@ -95,16 +96,16 @@ class ColorInterface(BaseInterfaceClass):
         self._last_command = None
         self.colorMemories.offset = value
         value = value + 7
-        return self.processor.set("offset_value", value)
+        return self.processor.set("offsetValue", value)
 
     def getOffset(self):
-        self._last_command = "get offset_value"
-        return self.processor.inquire("offset_value")
+        self._last_command = "get offsetValue"
+        return self.processor.inquire("offsetValue")
 
     def setRGainReset(self):
         self._last_command = None
         self.colorMemories.rGain = 80
-        return self.processor.set("r_gain_reset")
+        return self.processor.set("rGainReset")
 
     def setRGainUp(self):
         self._last_command = None
@@ -112,7 +113,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.rGain += 1
         else:
             self.colorMemories.rGain = 127
-        return self.processor.set("r_gain_up")
+        return self.processor.set("rGainUp")
 
     def setRGainDown(self):
         self._last_command = None
@@ -120,7 +121,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.rGain -= 1
         else:
             self.colorMemories.rGain = -128
-        return self.processor.set("r_gain_down")
+        return self.processor.set("rGainDown")
 
     def setRGain(self, value: int):
         """
@@ -140,16 +141,16 @@ class ColorInterface(BaseInterfaceClass):
         self._last_command = None
         self.colorMemories.rGain = value
         value = value + 128
-        return self.processor.set("r_gain_value", value)
+        return self.processor.set("rGainValue", value)
 
     def getRGain(self):
-        self._last_command = "get r_gain_value"
-        return self.processor.inquire("r_gain_value")
+        self._last_command = "get rGainValue"
+        return self.processor.inquire("rGainValue")
 
     def setBGainReset(self):
         self._last_command = None
         self.colorMemories.bGain = 80
-        return self.processor.set("b_gain_reset")
+        return self.processor.set("bGainReset")
 
     def setBGainUp(self):
         self._last_command = None
@@ -157,7 +158,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.bGain += 1
         else:
             self.colorMemories.bGain = 127
-        return self.processor.set("b_gain_up")
+        return self.processor.set("bGainUp")
 
     def setBGainDown(self):
         self._last_command = None
@@ -165,7 +166,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.bGain -= 1
         else:
             self.colorMemories.bGain = -128
-        return self.processor.set("b_gain_down")
+        return self.processor.set("bGainDown")
 
     def setBGain(self, value: int):
         """
@@ -185,11 +186,11 @@ class ColorInterface(BaseInterfaceClass):
         self._last_command = None
         self.colorMemories.bGain = value
         value = value + 128
-        return self.processor.set("b_gain_value", value)
+        return self.processor.set("bGainValue", value)
 
     def getBGain(self):
-        self._last_command = "get b_gain_value"
-        return self.processor.inquire("b_gain_value")
+        self._last_command = "get bGainValue"
+        return self.processor.inquire("bGainValue")
 
     def setChromaSuppressMode(self, mode: ChromaSuppressionEnum):
         """
@@ -205,7 +206,7 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.chromaSuppression = mode
-        return self.processor.set("chroma_suppress", mode.value)
+        return self.processor.set("chromaSuppress", mode.value)
 
     def getChromaSuppressMode(self):
         """
@@ -213,8 +214,8 @@ class ColorInterface(BaseInterfaceClass):
 
         :return: Modalità attuale (ChromaSuppressionEnum).
         """
-        self._last_command = "get chroma_suppress"
-        return self.processor.inquire("chroma_suppress")
+        self._last_command = "get chromaSuppress"
+        return self.processor.inquire("chromaSuppress")
 
     def setMatrixMode(self, value: MatrixSelectEnum):
         """
@@ -231,7 +232,7 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.matrix = value
-        return self.processor.set("matrix_mode", value.value)
+        return self.processor.set("matrixMode", value.value)
 
     def getMatrixMode(self):
         """
@@ -239,8 +240,8 @@ class ColorInterface(BaseInterfaceClass):
 
         :return: Matrice attuale (MatrixSelectEnum).
         """
-        self._last_command = "get matrix_mode"
-        return self.processor.inquire("matrix_mode")
+        self._last_command = "get matrixMode"
+        return self.processor.inquire("matrixMode")
 
     def setLevelReset(self):
         """
@@ -250,7 +251,7 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.saturation = 4
-        return self.processor.set("level_reset")
+        return self.processor.set("levelReset")
 
     def setLevelUp(self):
         """
@@ -263,7 +264,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.saturation += 1
         else:
             self.colorMemories.saturation = 14
-        return self.processor.set("level_up")
+        return self.processor.set("levelUp")
 
     def setLevelDown(self):
         """
@@ -276,7 +277,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.saturation -= 1
         else:
             self.colorMemories.saturation = 0
-        return self.processor.set("level_down")
+        return self.processor.set("levelDown")
 
     def setLevel(self, value: int):
         """
@@ -295,7 +296,7 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setLevel secondo lo standard VISCA.")
         self._last_command = None
         self.colorMemories.saturation = value
-        return self.processor.set("level_value", value)
+        return self.processor.set("levelValue", value)
 
     def getLevel(self):
         """
@@ -303,8 +304,8 @@ class ColorInterface(BaseInterfaceClass):
 
         :return: Livello attuale (0-14).
         """
-        self._last_command = "get level_value"
-        return self.processor.inquire("level_value")
+        self._last_command = "get levelValue"
+        return self.processor.inquire("levelValue")
 
     def setPhaseReset(self):
         """
@@ -314,7 +315,7 @@ class ColorInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.colorMemories.phase = 0
-        return self.processor.set("phase_reset")
+        return self.processor.set("phaseReset")
 
     def setPhaseUp(self):
         """
@@ -327,7 +328,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.phase += 1
         else:
             self.colorMemories.phase = 7
-        return self.processor.set("phase_up")
+        return self.processor.set("phaseUp")
 
     def setPhaseDown(self):
         """
@@ -340,7 +341,7 @@ class ColorInterface(BaseInterfaceClass):
             self.colorMemories.phase -= 1
         else:
             self.colorMemories.phase = -7
-        return self.processor.set("phase_down")
+        return self.processor.set("phaseDown")
 
     def setPhase(self, value: int):
         """
@@ -359,7 +360,7 @@ class ColorInterface(BaseInterfaceClass):
         self._last_command = None
         self.colorMemories.phase = value
         value += 7
-        return self.processor.set("phase_value", value)
+        return self.processor.set("phaseValue", value)
 
     def getPhase(self):
         """
@@ -367,8 +368,8 @@ class ColorInterface(BaseInterfaceClass):
 
         :return: Valore della fase (-7 a +7).
         """
-        self._last_command = "get phase_value"
-        return self.processor.inquire("phase_value")
+        self._last_command = "get phaseValue"
+        return self.processor.inquire("phaseValue")
 
     def setRG(self, value: int):
         """
@@ -387,11 +388,11 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setRG secondo lo standard VISCA.")
         self.colorMemories.rG = value
         value = value + 99
-        return self.processor.set("r_g_value", value)
+        return self.processor.set("rGValue", value)
 
     def getRG(self):
-        self._last_command = "get r_g_value"
-        return self.processor.inquire("r_g_value")
+        self._last_command = "get rGValue"
+        return self.processor.inquire("rGValue")
 
     def setRB(self, value: int):
         """
@@ -411,11 +412,11 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setRB secondo lo standard")
         self.colorMemories.rB = value
         value = value + 99
-        return self.processor.set("r_b_value", value)
+        return self.processor.set("rBValue", value)
 
     def getRB(self):
-        self._last_command = "get r_b_value"
-        return self.processor.inquire("r_b_value")
+        self._last_command = "get rBValue"
+        return self.processor.inquire("rBValue")
 
     def setGR(self, value: int):
         """
@@ -435,11 +436,11 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setGR secondo lo standard VISCA.")
         self.colorMemories.gR = value
         value = value + 99
-        return self.processor.set("g_r_value", value)
+        return self.processor.set("gRValue", value)
 
     def getGR(self):
-        self._last_command = "get g_r_value"
-        return self.processor.inquire("g_r_value")
+        self._last_command = "get gRValue"
+        return self.processor.inquire("gRValue")
 
     def setGB(self, value: int):
         """
@@ -459,11 +460,11 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setGB secondo lo standard VISCA.")
         self.colorMemories.gB = value
         value = value + 99
-        return self.processor.set("g_b_value", value)
+        return self.processor.set("gBValue", value)
 
     def getGB(self):
-        self._last_command = "get g_b_value"
-        return self.processor.inquire("g_b_value")
+        self._last_command = "get gBValue"
+        return self.processor.inquire("gBValue")
 
     def setBR(self, value: int):
         """
@@ -482,11 +483,11 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setBR secondo lo standard VISCA.")
         self.colorMemories.bR = value
         value = value + 99
-        return self.processor.set("b_r_value", value)
+        return self.processor.set("bRValue", value)
 
     def getBR(self):
-        self._last_command = "get b_r_value"
-        return self.processor.inquire("b_r_value")
+        self._last_command = "get bRValue"
+        return self.processor.inquire("bRValue")
 
     def setBG(self, value: int):
         """
@@ -505,16 +506,17 @@ class ColorInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per setBG secondo lo standard VISCA.")
         self.colorMemories.bG = value
         value = value + 99
-        return self.processor.set("b_g_value", value)
+        return self.processor.set("bGValue", value)
 
     def getBG(self):
-        self._last_command = "get b_g_value"
-        return self.processor.inquire("b_g_value")
+        self._last_command = "get bGValue"
+        return self.processor.inquire("bGValue")
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     colorMemories = ColorMemories()
+    colorDictionary = VISCADICTIONARY["ColorSettings"]
     color = ColorInterface(colorMemories, colorDictionary)
 
     print(color.__class__.__dict__.keys())

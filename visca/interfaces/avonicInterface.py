@@ -1,8 +1,9 @@
 from enum import Enum
 
-from visca.dictionary.dictionaries import customDictionary
+
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 
 
 class DynamicHotPixelCorrectionEnum(Enum):
@@ -49,16 +50,16 @@ class CustomInterface(BaseInterfaceClass):
     def setDynamicHotPixelCorrection(self, mode: DynamicHotPixelCorrectionEnum):
         self._last_command = None
         self.customMemories.dynamicHotPixelCorrection = mode
-        return self.processor.set("DynamicHotPixelCorrection", mode.value)
+        return self.processor.set("dynamichotpixelcorrection", mode.value)
 
     def getDynamicHotPixelCorrection(self):
-        self._last_command = "get DynamicHotPixelCorrection"
-        return self.processor.inquire("DynamicHotPixelCorrection")
+        self._last_command = "get dynamichotpixelcorrection"
+        return self.processor.inquire("dynamichotpixelcorrection")
 
     def cameraApertureReset(self):
         self._last_command = None
         self.customMemories.cameraAperture = 0
-        return self.processor.set("CameraAperture_reset")
+        return self.processor.set("cameraapertureReset")
 
     def cameraApertureUp(self):
         self._last_command = None
@@ -66,7 +67,7 @@ class CustomInterface(BaseInterfaceClass):
             self.customMemories.cameraAperture += 1
         else:
             self.customMemories.cameraAperture = 255
-        return self.processor.set("CameraAperture_Up")
+        return self.processor.set("cameraapertureUp")
 
     def cameraApertureDown(self):
         self._last_command = None
@@ -74,18 +75,18 @@ class CustomInterface(BaseInterfaceClass):
             self.customMemories.cameraAperture -= 1
         else:
             self.customMemories.cameraAperture = 0
-        return self.processor.set("CameraAperture_Down")
+        return self.processor.set("cameraapertureDown")
 
     def setCameraAperture(self, value: int):
         if value < 0 or value > 255:
             raise ValueError("Valore fuori range per Camera Aperture (0, 255).")
         self._last_command = None
         self.customMemories.cameraAperture = value
-        return self.processor.set("CameraAperture_Value", value)
+        return self.processor.set("cameraapertureValue", value)
 
     def getCameraAperture(self):
         self._last_command = "get CameraAperture_Value"
-        return self.processor.inquire("CameraAperture_Value")
+        return self.processor.inquire("cameraapertureValue")
 
     def setCameraBrightnessUp(self):
         self._last_command = None
@@ -108,11 +109,11 @@ class CustomInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Camera Brightness (0, 10).")
         self._last_command = None
         self.customMemories.cameraBrightness = value
-        return self.processor.set("CameraBrightness_value", value)
+        return self.processor.set("camerabrightnessValue", value)
 
     def getCameraBrightness(self):
-        self._last_command = "get CameraBrightness_value"
-        return self.processor.inquire("CameraBrightness_value")
+        self._last_command = "get camerabrightnessValue"
+        return self.processor.inquire("camerabrightnessValue")
 
     def setCameraContrastUp(self):
         self._last_command = None
@@ -135,40 +136,40 @@ class CustomInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Camera Contrast (0, 10).")
         self._last_command = None
         self.customMemories.cameraContrast = value
-        return self.processor.set("CameraContrast_value", value)
+        return self.processor.set("cameracontrastValue", value)
 
     def getCameraContrast(self):
-        self._last_command = "get CameraContrast_value"
-        return self.processor.inquire("CameraContrast_value")
+        self._last_command = "get cameracontrastValue"
+        return self.processor.inquire("cameracontrastValue")
 
     def setCameraFlip(self, mode: CameraFlipEnum):
         self._last_command = None
         self.customMemories.cameraFlip = mode
-        return self.processor.set("CameraFlip", mode.value)
+        return self.processor.set("cameraflip", mode.value)
 
     def getCameraFlip(self):
         self._last_command = "get CameraFlip"
-        return self.processor.inquire("CameraFlip")
+        return self.processor.inquire("cameraflip")
 
     def setCameraIridix(self, value: int):
         if value < 0 or value > 256:
             raise ValueError("Valore fuori range per Camera Iridix (0, 256).")
         self._last_command = None
         self.customMemories.cameraIridix = value
-        return self.processor.set("CameraIridix_value", value)
+        return self.processor.set("camerairidixValue", value)
 
     def getCameraIridix(self):
-        self._last_command = "get CameraIridix_value"
-        return self.processor.inquire("CameraIridix_value")
+        self._last_command = "get camerairidixValue"
+        return self.processor.inquire("camerairidixValue")
 
     def setAutoFocusZone(self, mode: AutoFocusZoneEnum):
         self._last_command = None
         self.customMemories.autoFocusZone = mode
-        return self.processor.set("AutoFocusZone", mode.value)
+        return self.processor.set("autofocuszone", mode.value)
 
     def getAutoFocusZone(self):
-        self._last_command = "get AutoFocusZone"
-        return self.processor.inquire("AutoFocusZone")
+        self._last_command = "get autofocuszone"
+        return self.processor.inquire("autofocuszone")
 
     def setColorHue(self, value: int):
         if value < -14 or value > 14:
@@ -176,58 +177,58 @@ class CustomInterface(BaseInterfaceClass):
         self._last_command = None
         self.customMemories.colorHue = value
         value += 14
-        return self.processor.set("ColorHue_value", value)
+        return self.processor.set("colorhueValue", value)
 
     def getColorHue(self):
-        self._last_command = "get ColorHue_value"
-        return self.processor.inquire("ColorHue_value")
+        self._last_command = "get colorhueValue"
+        return self.processor.inquire("colorhueValue")
 
     def setPanTiltMaxSpeed(self, mode: PanTiltStateEnum):
         self._last_command = None
         self.customMemories.panTiltMaxSpeed = mode
-        return self.processor.set("PanTilt_MaxSpeed", mode.value)
+        return self.processor.set("pantiltMaxspeed", mode.value)
 
     def getPanTiltMaxSpeed(self):
         self._last_command = "get PanTilt_MaxSpeed"
-        return self.processor.inquire("PanTilt_MaxSpeed")
+        return self.processor.inquire("pantiltMaxspeed")
 
     def setPresetPanSpeed(self, value: int):
         if value < 0 or value > 7:
             raise ValueError("Valore fuori range per Pan Tilt Speed (0, 7).")
         self._last_command = None
         self.customMemories.presetSpeed_horizontal = value
-        return self.processor.set("PresetSpeed_Horizontal", value)
+        return self.processor.set("presetspeedHorizontal", value)
 
     def getPresetPanSpeed(self):
-        self._last_command = "get PresetSpeed_Horizontal"
-        return self.processor.inquire("PresetSpeed_Horizontal")
+        self._last_command = "get presetspeedHorizontal"
+        return self.processor.inquire("presetspeedHorizontal")
 
     def setPresetTiltSpeed(self, value: int):
         if value < 0 or value > 7:
             raise ValueError("Valore fuori range per Pan Tilt Speed (0, 7).")
         self._last_command = None
         self.customMemories.presetSpeed_vertical = value
-        return self.processor.set("PresetSpeed_Vertical", value)
+        return self.processor.set("presetspeedVertical", value)
 
     def getPresetTiltSpeed(self):
-        self._last_command = "get PresetSpeed_Vertical"
-        return self.processor.inquire("PresetSpeed_Vertical")
+        self._last_command = "get presetspeedVertical"
+        return self.processor.inquire("presetspeedVertical")
 
     def setPresetZoomSpeed(self, value: int):
         if value < 0 or value > 7:
             raise ValueError("Valore fuori range per Zoom Speed (0, 7).")
         self._last_command = None
         self.customMemories.presetSpeed_zoom = value
-        return self.processor.set("PresetSpeed_Zoom", value)
+        return self.processor.set("presetspeedZoom", value)
 
     def getPresetZoomSpeed(self):
-        self._last_command = "get PresetSpeed_Zoom"
-        return self.processor.inquire("PresetSpeed_Zoom")
+        self._last_command = "get presetspeedZoom"
+        return self.processor.inquire("presetspeedZoom")
 
 if __name__ == "__main__":
     from visca.memories.customMemories import CustomMemories
     customMemories = CustomMemories()
-    dictionary = customDictionary
+    dictionary = VISCADICTIONARY["CustomSettings"]
     customInterface = CustomInterface(customMemories, dictionary)
     print(f"TEST setDynamicHotPixelCorrection: {customInterface.setDynamicHotPixelCorrection(DynamicHotPixelCorrectionEnum.AGGRESSIVE)}")
     print(f"TEST getDynamicHotPixelCorrection: {customInterface.getDynamicHotPixelCorrection()}")

@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import kneeDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -33,11 +33,11 @@ class KneeInterface(BaseInterfaceClass):
 
         self._last_command = None
         self.kneeMemories.knee_setting = mode
-        return self.processor.set("knee_setting", mode.value)
+        return self.processor.set("kneeSetting", mode.value)
 
     def getKneeSetting(self):
-        self._last_command = "get knee_setting"
-        return self.processor.inquire("knee_setting")
+        self._last_command = "get kneeSetting"
+        return self.processor.inquire("kneeSetting")
 
     # Knee Mode
     def setKneeMode(self, mode: KneeEnum):
@@ -55,11 +55,11 @@ class KneeInterface(BaseInterfaceClass):
 
         self._last_command = None
         self.kneeMemories.knee_mode = mode
-        return self.processor.set("knee_mode", mode.value)
+        return self.processor.set("kneeMode", mode.value)
 
     def getKneeMode(self):
-        self._last_command = "get knee_mode"
-        return self.processor.inquire("knee_mode")
+        self._last_command = "get kneeMode"
+        return self.processor.inquire("kneeMode")
 
     # Knee Slope Value
     def setKneeSlopeValue(self, value: int):
@@ -78,11 +78,11 @@ class KneeInterface(BaseInterfaceClass):
         self._last_command = None
         self.kneeMemories.knee_slope_value = value
         value = value + 7
-        return self.processor.set("knee_slope_value", value)
+        return self.processor.set("kneeSlopeValue", value)
 
     def getKneeSlopeValue(self):
-        self._last_command = "get knee_slope_value"
-        return self.processor.inquire("knee_slope_value")
+        self._last_command = "get kneeSlopeValue"
+        return self.processor.inquire("kneeSlopeValue")
 
     # Knee Point Value
     def setKneePointValue(self, value: int):
@@ -95,18 +95,19 @@ class KneeInterface(BaseInterfaceClass):
         :param value: Valore del punto Knee.
         :return: Comando inviato.
         """
-        if value not in self.command_map["knee_point_value"]["allowed_values"]:
-            raise ValueError("Valore fuori range per Knee Point Value.")
+        if value < 0 or value > 12:
+            raise ValueError("Valore fuori range per Knee Point Value (0, 12).")
         self._last_command = None
         self.kneeMemories.knee_point_value = value
-        return self.processor.set("knee_point_value", value)
+        return self.processor.set("kneePointValue", value)
 
     def getKneePointValue(self):
-        self._last_command = "get knee_point_value"
-        return self.processor.inquire("knee_point_value")
+        self._last_command = "get kneePointValue"
+        return self.processor.inquire("kneePointValue")
 
 if __name__ == "__main__":
     kneeMemories = KneeMemories()
+    kneeDictionary = VISCADICTIONARY["KneeSettings"]
     kneeInterface = KneeInterface(kneeMemories, kneeDictionary)
 
     print("\nTESTING setKneeSetting")

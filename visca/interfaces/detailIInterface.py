@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import detailDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -26,7 +26,7 @@ class DetailInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.detailMemories.detail_level = 0
-        return self.processor.set("detail_level_reset")
+        return self.processor.set("detailLevelReset")
 
     def detailUp(self):
         """
@@ -39,7 +39,7 @@ class DetailInterface(BaseInterfaceClass):
             self.detailMemories.detail_level += 1
         else:
             self.detailMemories.detail_level = 7
-        return self.processor.set("detail_level_up")
+        return self.processor.set("detailLevelUp")
 
     def detailDown(self):
         self._last_command = None
@@ -47,7 +47,7 @@ class DetailInterface(BaseInterfaceClass):
             self.detailMemories.detail_level -= 1
         else:
             self.detailMemories.detail_level = -7
-        return self.processor.set("detail_level_down")
+        return self.processor.set("detailLevelDown")
 
     def setDetailLevel(self, value: int):
         if value < -7 or value > 7:
@@ -55,11 +55,11 @@ class DetailInterface(BaseInterfaceClass):
         self._last_command = None
         self.detailMemories.detail_level = value
         value = value + 7
-        return self.processor.set("detail_level_value", value)
+        return self.processor.set("detailLevelValue", value)
 
     def getDetailLevel(self):
-        self._last_command = "get detail_level_value"
-        return self.processor.inquire("detail_level_value")
+        self._last_command = "get detailLevelValue"
+        return self.processor.inquire("detailLevelValue")
 
     # Detail Mode
     def setDetailMode(self, mode: EnumMode):
@@ -70,11 +70,11 @@ class DetailInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.detailMemories.detail_mode = mode
-        return self.processor.set("detail_mode", mode.value)
+        return self.processor.set("detailMode", mode.value)
 
     def getDetailMode(self):
-        self._last_command = "get detail_mode"
-        return self.processor.inquire("detail_mode")
+        self._last_command = "get detailMode"
+        return self.processor.inquire("detailMode")
 
     # Detail Bandwidth
     def setDetailBandwidth(self, mode: DetailBandWidthEnum):
@@ -85,11 +85,11 @@ class DetailInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.detailMemories.detail_bandwidth = mode
-        return self.processor.set("detail_bandwidth", mode.value)
+        return self.processor.set("detailBandwidth", mode.value)
 
     def getDetailBandwidth(self):
-        self._last_command = "get detail_bandwidth"
-        return self.processor.inquire("detail_bandwidth")
+        self._last_command = "get detailBandwidth"
+        return self.processor.inquire("detailBandwidth")
 
     # Detail Crispening
     def setDetailCrispening(self, value: int):
@@ -97,11 +97,11 @@ class DetailInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Detail Crispening (0-7).")
         self._last_command = None
         self.detailMemories.detail_crispening = value
-        return self.processor.set("detail_crispening", value)
+        return self.processor.set("detailCrispening", value)
 
     def getDetailCrispening(self):
-        self._last_command = "get detail_crispening"
-        return self.processor.inquire("detail_crispening")
+        self._last_command = "get detailCrispening"
+        return self.processor.inquire("detailCrispening")
 
     # Detail HV Balance
     def setDetailHVBalance(self, value: int):
@@ -110,21 +110,21 @@ class DetailInterface(BaseInterfaceClass):
         self._last_command = None
         self.detailMemories.detail_hv_balance = value
         value = value + 2
-        return self.processor.set("detail_hv_balance", value)
+        return self.processor.set("detailHvBalance", value)
 
     def getDetailHVBalance(self):
-        self._last_command = "get detail_hv_balance"
-        return self.processor.inquire("detail_hv_balance")
+        self._last_command = "get detailHvBalance"
+        return self.processor.inquire("detailHvBalance")
 
     # Detail BW Balance
     def setDetailBWBalance(self, mode: DetailBWBalanceEnum):
         self._last_command = None
         self.detailMemories.detail_bw_balance = mode
-        return self.processor.set("detail_bw_balance", mode.value)
+        return self.processor.set("detailBwBalance", mode.value)
 
     def getDetailBWBalance(self):
-        self._last_command = "get detail_bw_balance"
-        return self.processor.inquire("detail_bw_balance")
+        self._last_command = "get detailBwBalance"
+        return self.processor.inquire("detailBwBalance")
 
     # Detail Limit
     def setDetailLimit(self, value: int):
@@ -132,11 +132,11 @@ class DetailInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Detail Limit (0-7).")
         self._last_command = None
         self.detailMemories.detail_limit = value
-        return self.processor.set("detail_limit", value)
+        return self.processor.set("detailLimit", value)
 
     def getDetailLimit(self):
-        self._last_command = "get detail_limit"
-        return self.processor.inquire("detail_limit")
+        self._last_command = "get detailLimit"
+        return self.processor.inquire("detailLimit")
 
     # Detail Highlight
     def setDetailHighlight(self, value: int):
@@ -144,11 +144,11 @@ class DetailInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Detail Highlight (0-4).")
         self._last_command = None
         self.detailMemories.detail_highlight = value
-        return self.processor.set("detail_highlight", value)
+        return self.processor.set("detailHighlight", value)
 
     def getDetailHighlight(self):
-        self._last_command = "get detail_highlight"
-        return self.processor.inquire("detail_highlight")
+        self._last_command = "get detailHighlight"
+        return self.processor.inquire("detailHighlight")
 
     # Detail Super Low
     def setDetailSuperLow(self, value: int):
@@ -156,14 +156,15 @@ class DetailInterface(BaseInterfaceClass):
             raise ValueError("Valore fuori range per Detail Super Low (0-7).")
         self._last_command = None
         self.detailMemories.detail_super_low = value
-        return self.processor.set("detail_super_low", value)
+        return self.processor.set("detailSuperLow", value)
 
     def getDetailSuperLow(self):
-        self._last_command = "get detail_super_low"
-        return self.processor.inquire("detail_super_low")
+        self._last_command = "get detailSuperLow"
+        return self.processor.inquire("detailSuperLow")
 
 if __name__ == "__main__":
     detailMemories = DetailMemories()
+    detailDictionary = VISCADICTIONARY["DetailSettings"]
     detailInterface = DetailInterface(detailMemories, detailDictionary)
     print("Detail Interface")
     print(f"test get detail mode:       \t\t{detailInterface.getDetailMode()}")

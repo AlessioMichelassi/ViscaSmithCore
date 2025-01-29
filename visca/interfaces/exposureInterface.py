@@ -1,7 +1,7 @@
 import json
 import logging
 
-
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -590,8 +590,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     exposureMemories = ExposureMemories()
     # stampa una lista delle funzioni
-    with open(r"/viscaSmith/visca/ViscaDictionary.py", "r") as f:
-        dictionary = json.load(f)
+    dictionary = VISCADICTIONARY
     exposureDictionary = dictionary["ExposureSettings"]
     exposure = ExposureInterface(exposureMemories, exposureDictionary)
     print(exposure.__class__.__dict__.keys())

@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import zoomDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -22,17 +22,17 @@ class ZoomInterface(BaseInterfaceClass):
     # Zoom Stop
     def stopZoom(self):
         self._last_command = None
-        return self.processor.set("stop_zoom")
+        return self.processor.set("stopZoom")
 
     # Zoom Tele Standard
     def zoomTeleStandard(self):
         self._last_command = None
-        return self.processor.set("tele_standard")
+        return self.processor.set("teleStandard")
 
     # Zoom Wide Standard
     def zoomWideStandard(self):
         self._last_command = None
-        return self.processor.set("wide_standard")
+        return self.processor.set("wideStandard")
 
     # Zoom Tele Variable
     def zoomTeleVariable(self, speed: int):
@@ -44,7 +44,7 @@ class ZoomInterface(BaseInterfaceClass):
         if speed < 0 or speed > 7:
             raise ValueError("Velocità fuori range per Tele Zoom Variabile (0-7).")
         self._last_command = None
-        return self.processor.set("tele_variable", speed)
+        return self.processor.set("teleVariable", speed)
 
     # Zoom Wide Variable
     def zoomWideVariable(self, speed: int):
@@ -56,7 +56,7 @@ class ZoomInterface(BaseInterfaceClass):
         if speed < 0 or speed > 7:
             raise ValueError("Velocità fuori range per Wide Zoom Variabile (0-7).")
         self._last_command = None
-        return self.processor.set("wide_variable", speed)
+        return self.processor.set("wideVariable", speed)
 
     # Zoom Direct
     def setZoomValue(self, position: int):
@@ -88,32 +88,33 @@ class ZoomInterface(BaseInterfaceClass):
             raise ValueError("Stato fuori range per Tele Convert.")
         self._last_command = None
         self.zoomMemories.tele_convert = state
-        return self.processor.set("tele_convert", state.value)
+        return self.processor.set("teleConvert", state.value)
 
     def getTeleConvert(self):
-        self._last_command = "get tele_convert"
-        return self.processor.inquire("tele_convert")
+        self._last_command = "get teleConvert"
+        return self.processor.inquire("teleConvert")
 
     # Digital Zoom On/Off
     def digitalZoomOn(self):
         self._last_command = None
-        return self.processor.set("digital_zoom_on")
+        return self.processor.set("digitalZoomOn")
 
     def digitalZoomOff(self):
         self._last_command = None
-        return self.processor.set("digital_zoom_off")
+        return self.processor.set("digitalZoomOff")
 
     # Clear Image Zoom On/Off
     def clearImageZoomOn(self):
         self._last_command = None
-        return self.processor.set("clear_image_zoom_on")
+        return self.processor.set("clearImageZoomOn")
 
     def clearImageZoomOff(self):
         self._last_command = None
-        return self.processor.set("clear_image_zoom_off")
+        return self.processor.set("clearImageZoomOff")
 
 if __name__ == "__main__":
     zoomMemories = ZoomMemories()
+    zoomDictionary = VISCADICTIONARY["ZoomSettings"]
     interface = ZoomInterface(zoomMemories, zoomDictionary)
     print(interface.stopZoom())
     print("zomm tele standard: 8x 01 04 07 02 FF")

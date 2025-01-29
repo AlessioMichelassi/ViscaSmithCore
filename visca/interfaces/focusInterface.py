@@ -1,4 +1,4 @@
-from visca.dictionary.dictionaries import focusDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import *
 from visca.baseClasses.baseInterfaceClass import BaseInterfaceClass
 from visca.dataStucture.commandProcessor import CommandProcessor
@@ -57,27 +57,27 @@ class FocusInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.focusMemories.focus_mode = mode
-        return self.processor.set("focus_mode", mode.value)
+        return self.processor.set("focusMode", mode.value)
 
     def getFocusMode(self):
-        self._last_command = "get focus_mode"
-        return self.processor.inquire("focus_mode")
+        self._last_command = "get focusMode"
+        return self.processor.inquire("focusMode")
 
     # Focus Movement
     def focusStop(self):
         """Ferma la messa a fuoco."""
         self._last_command = None
-        return self.processor.set("focus_stop")
+        return self.processor.set("focusStop")
 
     def focusFarStandard(self):
         """Muove la messa a fuoco verso lontano (velocità standard)."""
         self._last_command = None
-        return self.processor.set("focus_far_standard")
+        return self.processor.set("focusFarStandard")
 
     def focusNearStandard(self):
         """Muove la messa a fuoco verso vicino (velocità standard)."""
         self._last_command = None
-        return self.processor.set("focus_near_standard")
+        return self.processor.set("focusNearStandard")
 
     def setFocusFarVariable(self, speed: int):
         """
@@ -87,7 +87,7 @@ class FocusInterface(BaseInterfaceClass):
         if 0 > speed or speed > 7:
             raise ValueError("Valore fuori range per la velocità variabile.")
         self._last_command = None
-        return self.processor.set("focus_far_variable", speed)
+        return self.processor.set("focusFarVariable", speed)
 
     def setFocusNearVariable(self, speed: int):
         """
@@ -97,7 +97,7 @@ class FocusInterface(BaseInterfaceClass):
         if 0 > speed or speed > 7:
             raise ValueError("Valore fuori range per la velocità variabile.")
         self._last_command = None
-        return self.processor.set("focus_near_variable", speed)
+        return self.processor.set("focusNearVariable", speed)
 
     def setFocusValue(self, focus_value: int):
         """
@@ -111,22 +111,22 @@ class FocusInterface(BaseInterfaceClass):
         self.focusMemories.focus_value = focus_value
 
         # Passa i due byte separatamente
-        return self.processor.set("focus_value", focus_value)
+        return self.processor.set("focusValue", focus_value)
 
     def getFocusValue(self):
-        self._last_command = "get focus_value"
-        return self.processor.inquire("focus_value")
+        self._last_command = "get focusValue"
+        return self.processor.inquire("focusValue")
 
     # Additional Commands
     def focusOnePushTrigger(self):
         """Attiva il trigger AF One Push."""
         self._last_command = None
-        return self.processor.set("focus_one_push_trigger")
+        return self.processor.set("focusOnePushTrigger")
 
     def focusInfinity(self):
         """Imposta la messa a fuoco all'infinito."""
         self._last_command = None
-        return self.processor.set("focus_infinity")
+        return self.processor.set("focusInfinity")
 
     def setNearFocusLimit(self, focus_limit: int):
         """
@@ -138,7 +138,7 @@ class FocusInterface(BaseInterfaceClass):
 
         self._last_command = None
         self.focusMemories.focus_near_limit = focus_limit
-        return self.processor.set("focus_near_limit", focus_limit)
+        return self.processor.set("focusNearLimit", focus_limit)
 
     def setAfMode(self, mode: AutoFocusModeEnum):
         """
@@ -147,11 +147,11 @@ class FocusInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.focusMemories.af_mode = mode
-        return self.processor.set("af_mode", mode.value)
+        return self.processor.set("afMode", mode.value)
 
     def getAfMode(self):
-        self._last_command = "get af_mode"
-        return self.processor.inquire("af_mode")
+        self._last_command = "get afMode"
+        return self.processor.inquire("afMode")
 
     def setAfSensitivity(self, sensitivity: AutoFocusSensitivityEnum):
         """
@@ -160,11 +160,29 @@ class FocusInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.focusMemories.af_sensitivity = sensitivity
-        return self.processor.set("af_sensitivity", sensitivity.value)
+        return self.processor.set("afSensitivity", sensitivity.value)
+
+    def setAfModeInterval(self, af_operatingTime: AutoFocusOperationTime, af_stay_time: int):
+        """
+        Imposta una modalità AF Speciale dove AutofocusMode è impostato su "NORMAL" di default, ma può essere
+        modificato per un tempo specifico o azionato dallo zoom.
+        af_stay_Time invece è un numero da 0 a 255 che rappresenta il tempo di attesa in secondi.
+        0 = Disabilitato. 1-255 = Tempo di attesa in secondi.
+        :param af_operatingTime: AutoFocusOperationTime NORMAL, INTERVAL, ZOOM
+        :param af_stay_time: Tempo di attesa in secondi (0 a 255).
+        """
+        self._last_command = None
+        self.focusMemories.af_operating_time = af_operatingTime
+        self.focusMemories.af_stay_time = af_stay_time
+        return self.processor.set("afModeInterval", af_operatingTime.value, af_stay_time)
+
+    def getAfModeInterval(self):
+        self._last_command = "get afModeInterval"
+        return self.processor.inquire("afModeInterval")
 
     def getAfSensitivity(self):
-        self._last_command = "get af_sensitivity"
-        return self.processor.inquire("af_sensitivity")
+        self._last_command = "get afSensitivity"
+        return self.processor.inquire("afSensitivity")
 
     def setIrCorrection(self, correction: IRCorrectionEnum):
         """
@@ -173,15 +191,16 @@ class FocusInterface(BaseInterfaceClass):
         """
         self._last_command = None
         self.focusMemories.ir_correction = correction
-        return self.processor.set("ir_correction", correction.value)
+        return self.processor.set("irCorrection", correction.value)
 
     def getIrCorrection(self):
-        self._last_command = "get ir_correction"
-        return self.processor.inquire("ir_correction")
+        self._last_command = "get irCorrection"
+        return self.processor.inquire("irCorrection")
 
 
 if __name__ == "__main__":
     focusMemories = FocusMemories()
+    focusDictionary = VISCADICTIONARY["FocusSettings"]
     focusInterface = FocusInterface(focusMemories, focusDictionary)
 
     print("=== Focus Interface Commands ===")
@@ -233,6 +252,12 @@ if __name__ == "__main__":
 
     print("Executing: getAfSensitivity()")
     print(focusInterface.getAfSensitivity())
+
+    print("Executing: setAfModeInterval(AutoFocusOperationTime.ZOOM_TRIGGER, 5)")
+    print(focusInterface.setAfModeInterval(AutoFocusOperationTime.ZOOM_TRIGGER, 5))
+
+    print("Executing: getAfModeInterval()")
+    print(focusInterface.getAfModeInterval())
 
     print("Executing: setIrCorrection(IRCorrectionEnum.STANDARD)")
     print(focusInterface.setIrCorrection(IRCorrectionEnum.STANDARD))

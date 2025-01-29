@@ -1,7 +1,4 @@
-import json
-import os
-
-from visca.ViscaDictionary import viscaDictionary
+from visca.dictionary.ViscaDictionary import VISCADICTIONARY
 from visca.dictionary.enumerations import ExposureModeEnum, IrisSettingsEnum
 from visca.memories.colorMemories import ColorMemories
 from visca.memories.customMemories import CustomMemories
@@ -15,7 +12,7 @@ from visca.memories.panTiltMemories import PanTiltMemories
 from visca.memories.systemMemories import SystemMemories
 from visca.memories.zoomMemories import ZoomMemories
 from visca.interfaces.colorInterface import ColorInterface
-from visca.interfaces.customInterface import CustomInterface
+from visca.interfaces.avonicInterface import CustomInterface
 from visca.interfaces.detailIInterface import DetailInterface
 from visca.interfaces.exposureInterface import ExposureInterface
 from visca.interfaces.focusInterface import FocusInterface
@@ -60,7 +57,7 @@ class CameraObject:
     Oggetto camera che mantiene i dati della camera.
     """
     def __init__(self):
-        self.defaultDictionary = viscaDictionary
+        self.defaultDictionary = VISCADICTIONARY
         self.initMemories()
         self.initInterfaces()
 
