@@ -17,8 +17,11 @@ There is a ton of documentation in the doc folder, so make sure to check it out!
 
 # Changelog
 
+Version 0.4.7
+- fixed some bugs in the dictionary
+
 Version 0.4.6
-- Fixed Coerence name camelCase for all Function, snake_case for all variables
+- Fixed Coherence name camelCase for all Function, snake_case for all variables
 
 0.4.5 modifiche
 - c'era un errore dovuto all'uso del vecchio dizionario dove i comandi era non nella forma white_balance_mode piuttosto che whiteBalanceMode. I nomi ora sono consistenti e sono stati testati tutti i comandi.

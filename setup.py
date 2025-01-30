@@ -15,7 +15,7 @@ Whether you're controlling a physical camera or an emulated one, this utility ma
 
 setup(
     name="viscaSmith",
-    version="0.4.5",
+    version="0.4.7",
     author="Alessio Michelassi",
     author_email="alessio.michelassi@gmail.com",
     description="Una libreria per controllare telecamere VISCA tramite UDP",
