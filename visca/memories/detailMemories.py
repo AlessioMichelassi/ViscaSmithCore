@@ -1,21 +1,19 @@
-
 from visca.dictionary.enumerations import *
-
 
 class DetailMemories:
     # Stato interno
-    _detail_level : int
-    _detail_mode : EnumMode
+    _detail_level: int
+    _detail_mode: EnumMode
     _detail_bandwidth: DetailBandWidthEnum
-    _detail_crispening : int
-    _detail_hv_balance : int
+    _detail_crispening: int
+    _detail_hv_balance: int
     _detail_bw_balance: DetailBWBalanceEnum
-    _detail_limit : int
-    _detail_highlight : int
-    _detail_super_low : int
+    _detail_limit: int
+    _detail_highlight: int
+    _detail_super_low: int
 
     def __init__(self):
-        # default values
+        # Valori di default
         self._detail_level = 0
         self._detail_mode = EnumMode.MANUAL
         self._detail_bandwidth = DetailBandWidthEnum.DEFAULT
@@ -27,75 +25,75 @@ class DetailMemories:
         self._detail_super_low = 0
 
     @property
-    def detail_level(self):
+    def detailLevel(self):
         return self._detail_level
 
-    @detail_level.setter
-    def detail_level(self, value):
+    @detailLevel.setter
+    def detailLevel(self, value):
         self._detail_level = value
 
     @property
-    def detail_mode(self):
+    def detailMode(self):
         return self._detail_mode
 
-    @detail_mode.setter
-    def detail_mode(self, value: EnumMode):
+    @detailMode.setter
+    def detailMode(self, value: EnumMode):
         self._detail_mode = value
 
     @property
-    def detail_bandwidth(self):
+    def detailBandwidth(self):
         return self._detail_bandwidth
 
-    @detail_bandwidth.setter
-    def detail_bandwidth(self, value: DetailBandWidthEnum):
+    @detailBandwidth.setter
+    def detailBandwidth(self, value: DetailBandWidthEnum):
         self._detail_bandwidth = value
 
     @property
-    def detail_crispening(self):
+    def detailCrispening(self):
         return self._detail_crispening
 
-    @detail_crispening.setter
-    def detail_crispening(self, value):
+    @detailCrispening.setter
+    def detailCrispening(self, value):
         self._detail_crispening = value
 
     @property
-    def detail_hv_balance(self):
+    def detailHvBalance(self):
         return self._detail_hv_balance
 
-    @detail_hv_balance.setter
-    def detail_hv_balance(self, value):
+    @detailHvBalance.setter
+    def detailHvBalance(self, value):
         self._detail_hv_balance = value
 
     @property
-    def detail_bw_balance(self):
+    def detailBwBalance(self):
         return self._detail_bw_balance
 
-    @detail_bw_balance.setter
-    def detail_bw_balance(self, value: DetailBWBalanceEnum):
+    @detailBwBalance.setter
+    def detailBwBalance(self, value: DetailBWBalanceEnum):
         self._detail_bw_balance = value
 
     @property
-    def detail_limit(self):
+    def detailLimit(self):
         return self._detail_limit
 
-    @detail_limit.setter
-    def detail_limit(self, value):
+    @detailLimit.setter
+    def detailLimit(self, value):
         self._detail_limit = value
 
     @property
-    def detail_highlight(self):
+    def detailHighlight(self):
         return self._detail_highlight
 
-    @detail_highlight.setter
-    def detail_highlight(self, value):
+    @detailHighlight.setter
+    def detailHighlight(self, value):
         self._detail_highlight = value
 
     @property
-    def detail_super_low(self):
+    def detailSuperLow(self):
         return self._detail_super_low
 
-    @detail_super_low.setter
-    def detail_super_low(self, value):
+    @detailSuperLow.setter
+    def detailSuperLow(self, value):
         self._detail_super_low = value
 
     def serialize(self):

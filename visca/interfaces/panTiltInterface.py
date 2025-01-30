@@ -76,7 +76,7 @@ class PanTiltInterface(BaseInterfaceClass):
     # Pan-Tilt Drive Stop
     def panTiltDriveStop(self):
         self._last_command = None
-        return self.processor.set("panTiltDriveStop", self.panTiltMemories.pan_speed, self.panTiltMemories.tilt_speed)
+        return self.processor.set("panTiltDriveStop", self.panTiltMemories.panSpeed, self.panTiltMemories.tiltSpeed)
 
     # Pan-Tilt Absolute Position
     def panTiltAbsolutePosition(self, pan_speed: int, tilt_speed: int, pan_position: int, tilt_position: int):

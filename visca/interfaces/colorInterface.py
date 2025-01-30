@@ -94,7 +94,7 @@ class ColorInterface(BaseInterfaceClass):
         if value < -7 or value > 7:
             raise ValueError("Valore fuori range per setOffset secondo lo standard VISCA.")
         self._last_command = None
-        self.colorMemories.offset = value
+        self.colorMemories.offsetValue = value
         value = value + 7
         return self.processor.set("offsetValue", value)
 
@@ -562,4 +562,22 @@ if __name__ == "__main__":
     print(color.setPhase(2))
     print(color.getPhase())
     print("RG")
+    print(color.setRG(2))
+    print(color.getRG())
+    print("RB")
+    print(color.setRB(2))
+    print(color.getRB())
+    print("GR")
+    print(color.setGR(2))
+    print(color.getGR())
+    print("GB")
+    print(color.setGB(2))
+    print(color.getGB())
+    print("BR")
+    print(color.setBR(2))
+    print(color.getBR())
+    print("BG")
+    print(color.setBG(2))
+    print(color.getBG())
+
 

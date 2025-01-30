@@ -88,50 +88,57 @@ class CameraObject:
         self.custom = CustomInterface(self.customMemories, self.defaultDictionary["CustomSettings"])
         self.preset = PresetInterface(self.defaultDictionary["PresetSettings"])
 
-
     def handleSet(self, payload) -> bool:
         """
         Gestisce un comando di tipo "set".
         :param payload: Payload del comando senza terminatore.
         :return: True se il comando è stato gestito correttamente, altrimenti False.
         """
-        command_payload = payload[:3]
+        command_payload = payload[:3]  # Prendo i primi 3 byte come base di ricerca
 
         print(f"Comando Payload: {command_payload.hex()}")
 
         command_found = False
 
         for category, commands in self.defaultDictionary.items():
-            # print(f"Category: {category}")
             for command_name, details in commands.items():
                 command_base = details["cmd"]
                 placeholders = details.get("placeholder", [])
 
-                # Rimuove i placeholder dal comando
-                for placeholder in placeholders:
-                    command_base = command_base.replace(placeholder, "")
+                # Rimuove i placeholder per il confronto iniziale
+                base_cmd_hex = command_base.split("pp")[0]  # Prendi solo la parte fissa prima dei placeholder
+                base_cmd_bytes = bytes.fromhex(base_cmd_hex.replace(" ", ""))
 
-                # Converte il comando base in byte
-                command_bytes = bytes.fromhex(command_base.replace(" ", ""))
+                if command_payload.startswith(base_cmd_bytes):  # Controlla solo la parte base del comando
+                    print(f"✅ Comando trovato: {command_name} -> {details['cmd']}")
 
-                if command_payload.startswith(command_bytes):
-                    print(f"Comando trovato: {command_name} -> {details['cmd']}")
+                    # Rimuove la parte fissa dal payload ricevuto per analizzare i valori dinamici
+                    dynamic_values = payload[len(base_cmd_bytes):]
 
-                    dynamic_values = command_payload[len(command_bytes):]
-                    print(f"Valori dinamici trovati: {dynamic_values.hex()}")
+                    if not dynamic_values:
+                        raise ValueError(f"\t❌ ERRORE: Nessun valore dinamico in {payload.hex()} per {command_name}")
 
+                    # Se ha placeholder, prova a estrarre i valori
                     if placeholders and details.get("allowed_values"):
-                        value = int(dynamic_values.hex(), 16)
+                        try:
+                            value = int(dynamic_values.hex(), 16)
+                        except ValueError:
+                            raise ValueError(
+                                f"\t❌ ERRORE: Conversione fallita per {dynamic_values.hex()} in {command_name}")
+
                         if value not in details["allowed_values"]:
-                            print(f"Valore {value} non valido!")
+                            print(f"\t❌ Valore {value} non valido per {command_name}!")
                             return False
 
-                        # Imposta il valore nella memoria
                         return self.setMemories(category, command_name, value)
 
+                    command_found = True  # Segnalo che almeno un comando è stato trovato
+
         if not command_found:
-            print(f"Comando non trovato. Payload rimanente: {command_payload.hex()}")
-            return False
+            print(f"\t❌ Comando non trovato. Payload rimanente: {command_payload.hex()}")
+            raise NotImplementedError(f"Comando non trovato: {command_payload.hex()}")
+
+        return False  # Default in caso di errore
 
     def setMemories(self, category, memory, value) -> bool:
         """

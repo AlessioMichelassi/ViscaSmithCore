@@ -8,8 +8,7 @@ class GammaMemories:
     _gamma_offset_value: dict
     _gamma_level_value: int
     _black_gamma_level_value: int
-    _black_gamma_range_value: BlackGammaRAngeEnum
-    _black_level: int
+    _black_gamma_range_value: BlackGammaRangeEnum
     _black_level_value: int
 
     def __init__(self):
@@ -19,85 +18,84 @@ class GammaMemories:
         self._gamma_offset_value = {"polarity": GammaPolarityEnum.POSITIVE, "width": 0}
         self._gamma_level_value = 0
         self._black_gamma_level_value = 0
-        self._black_gamma_range_value = BlackGammaRAngeEnum.MIDDLE
-        self._black_level = 0
+        self._black_gamma_range_value = BlackGammaRangeEnum.MIDDLE
         self._black_level_value = 0
 
     @property
-    def gamma_select(self):
+    def gammaSelect(self):
         return self._gamma_select
 
-    @gamma_select.setter
-    def gamma_select(self, value):
+    @gammaSelect.setter
+    def gammaSelect(self, value):
         self._gamma_select = value
 
     @property
-    def gamma_pattern_value(self):
+    def gammaPatternValue(self):
         return self._gamma_pattern_value
 
-    @gamma_pattern_value.setter
-    def gamma_pattern_value(self, value):
+    @gammaPatternValue.setter
+    def gammaPatternValue(self, value):
         self._gamma_pattern_value = value
 
     @property
-    def gamma_offset_value(self):
+    def gammaOffsetValue(self):
         return self._gamma_offset_value
 
-    @gamma_offset_value.setter
-    def gamma_offset_value(self, value: dict):
+    @gammaOffsetValue.setter
+    def gammaOffsetValue(self, value: dict):
         self._gamma_offset_value = value
 
     @property
-    def gamma_level_value(self):
+    def gammaLevelValue(self):
         return self._gamma_level_value
 
-    @gamma_level_value.setter
-    def gamma_level_value(self, value):
+    @gammaLevelValue.setter
+    def gammaLevelValue(self, value):
         self._gamma_level_value = value
 
     @property
-    def black_gamma_level_value(self):
+    def blackGammaLevelValue(self):
         return self._black_gamma_level_value
 
-    @black_gamma_level_value.setter
-    def black_gamma_level_value(self, value):
+    @blackGammaLevelValue.setter
+    def blackGammaLevelValue(self, value):
         self._black_gamma_level_value = value
 
     @property
-    def black_gamma_range_value(self):
+    def blackGammaRangeValue(self):
         return self._black_gamma_range_value
 
-    @black_gamma_range_value.setter
-    def black_gamma_range_value(self, value:BlackGammaRAngeEnum):
+    @blackGammaRangeValue.setter
+    def blackGammaRangeValue(self, value: BlackGammaRangeEnum):
         self._black_gamma_range_value = value
 
     @property
-    def black_level_value(self):
+    def blackLevelValue(self):
         return self._black_level_value
 
-    @black_level_value.setter
-    def black_level_value(self, value):
+    @blackLevelValue.setter
+    def blackLevelValue(self, value):
         self._black_level_value = value
 
     def serialize(self):
         return {
-            "gamma_select": self._gamma_select.name,
-            "gamma_pattern_value": self._gamma_pattern_value,
-            "gamma_offset_value": self._gamma_offset_value,
-            "gamma_level_value": self._gamma_level_value,
-            "black_gamma_level_value": self._black_gamma_level_value,
-            "black_gamma_range_value": self._black_gamma_range_value,
-            "black_level_value": self._black_level_value,
+            "gammaSelect": self._gamma_select.name,
+            "gammaPatternValue": self._gamma_pattern_value,
+            "gammaOffsetValue": self._gamma_offset_value,
+            "gammaLevelValue": self._gamma_level_value,
+            "blackGammaLevelValue": self._black_gamma_level_value,
+            "blackGammaRangeValue": self._black_gamma_range_value.name,
+            "blackLevelValue": self._black_level_value,
         }
 
     def deserialize(self, data):
-        self.gamma_select = self.returnEnumerationFromSomething(data.get("gamma_select"), GammaLevelEnum)
-        self.gamma_pattern_value = data.get("gamma_pattern_value", self.gamma_pattern_value)
-        self.gamma_offset_value = data.get("gamma_offset_value", self.gamma_offset_value)
-        self.gamma_level_value = data.get("gamma_level_value", self.gamma_level_value)
-        self.black_gamma_level_value = data.get("black_gamma_level_value", self.black_gamma_level_value)
-        self.black_gamma_range_value = data.get("black_gamma_range_value", self.black_gamma_range_value)
-        self.black_level_value = data.get("black_level_value", self.black_level_value)
+        self.gammaSelect = self.returnEnumerationFromSomething(data.get("gammaSelect"), GammaLevelEnum)
+        self.gammaPatternValue = data.get("gammaPatternValue", self.gammaPatternValue)
+        self.gammaOffsetValue = data.get("gammaOffsetValue", self.gammaOffsetValue)
+        self.gammaLevelValue = data.get("gammaLevelValue", self.gammaLevelValue)
+        self.blackGammaLevelValue = data.get("blackGammaLevelValue", self.blackGammaLevelValue)
+        self.blackGammaRangeValue = self.returnEnumerationFromSomething(data.get("blackGammaRangeValue"), BlackGammaRangeEnum)
+        self.blackLevelValue = data.get("blackLevelValue", self.blackLevelValue)
 
     @staticmethod
     def returnEnumerationFromSomething(something, enumeration):

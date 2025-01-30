@@ -2,7 +2,6 @@ from visca.dictionary.enumerations import *
 
 
 class FocusMemories:
-
     _focus_mode: FocusModeEnum
     _focus_value: int
     _af_mode: AutoFocusModeEnum
@@ -17,43 +16,43 @@ class FocusMemories:
         self._ir_correction = IRCorrectionEnum.STANDARD
 
     @property
-    def focus_mode(self):
+    def focusMode(self):
         return self._focus_mode
 
-    @focus_mode.setter
-    def focus_mode(self, mode: FocusModeEnum):
+    @focusMode.setter
+    def focusMode(self, mode: FocusModeEnum):
         self._focus_mode = mode
 
     @property
-    def focus_value(self):
+    def focusValue(self):
         return self._focus_value
 
-    @focus_value.setter
-    def focus_value(self, value: int):
+    @focusValue.setter
+    def focusValue(self, value: int):
         self._focus_value = value
 
     @property
-    def af_mode(self):
+    def afMode(self):
         return self._af_mode
 
-    @af_mode.setter
-    def af_mode(self, mode: AutoFocusModeEnum):
+    @afMode.setter
+    def afMode(self, mode: AutoFocusModeEnum):
         self._af_mode = mode
 
     @property
-    def af_sensitivity(self):
+    def afSensitivity(self):
         return self._af_sensitivity
 
-    @af_sensitivity.setter
-    def af_sensitivity(self, sensitivity: AutoFocusSensitivityEnum):
+    @afSensitivity.setter
+    def afSensitivity(self, sensitivity: AutoFocusSensitivityEnum):
         self._af_sensitivity = sensitivity
 
     @property
-    def ir_correction(self):
+    def irCorrection(self):
         return self._ir_correction
 
-    @ir_correction.setter
-    def ir_correction(self, correction: IRCorrectionEnum):
+    @irCorrection.setter
+    def irCorrection(self, correction: IRCorrectionEnum):
         self._ir_correction = correction
 
     def serialize(self):
@@ -61,8 +60,8 @@ class FocusMemories:
             "focus_mode": self._focus_mode.value,
             "focus_value": self._focus_value,
             "af_mode": self._af_mode.value,
-            "af_sensitivity": self._af_sensitivity,
-            "ir_correction": self._ir_correction
+            "af_sensitivity": self._af_sensitivity.value,
+            "ir_correction": self._ir_correction.value
         }
 
     @staticmethod
@@ -93,6 +92,9 @@ class FocusMemories:
             raise ValueError(f"Errore durante la conversione di '{something}' in {enumeration.__name__}: {e}")
 
     def deserialize(self, data):
+        """
+        Deserializza i dati e aggiorna gli attributi dell'oggetto.
+        """
         self._focus_mode = self.returnEnumerationFromSomething(data.get("focus_mode"), FocusModeEnum)
         self._focus_value = data.get("focus_value")
         self._af_mode = self.returnEnumerationFromSomething(data.get("af_mode"), AutoFocusModeEnum)

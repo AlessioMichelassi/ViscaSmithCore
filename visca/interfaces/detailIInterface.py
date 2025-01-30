@@ -25,7 +25,7 @@ class DetailInterface(BaseInterfaceClass):
         :return:
         """
         self._last_command = None
-        self.detailMemories.detail_level = 0
+        self.detailMemories.detailLevel = 0
         return self.processor.set("detailLevelReset")
 
     def detailUp(self):
@@ -35,25 +35,25 @@ class DetailInterface(BaseInterfaceClass):
         :return:
         """
         self._last_command = None
-        if self.detailMemories.detail_level < 7:
-            self.detailMemories.detail_level += 1
+        if self.detailMemories.detailLevel < 7:
+            self.detailMemories.detailLevel += 1
         else:
-            self.detailMemories.detail_level = 7
+            self.detailMemories.detailLevel = 7
         return self.processor.set("detailLevelUp")
 
     def detailDown(self):
         self._last_command = None
-        if self.detailMemories.detail_level > -7:
-            self.detailMemories.detail_level -= 1
+        if self.detailMemories.detailLevel > -7:
+            self.detailMemories.detailLevel -= 1
         else:
-            self.detailMemories.detail_level = -7
+            self.detailMemories.detailLevel = -7
         return self.processor.set("detailLevelDown")
 
     def setDetailLevel(self, value: int):
         if value < -7 or value > 7:
             raise ValueError("Valore fuori range per Detail Level (-7, 7).")
         self._last_command = None
-        self.detailMemories.detail_level = value
+        self.detailMemories.detailLevel = value
         value = value + 7
         return self.processor.set("detailLevelValue", value)
 
@@ -69,7 +69,7 @@ class DetailInterface(BaseInterfaceClass):
         :return:
         """
         self._last_command = None
-        self.detailMemories.detail_mode = mode
+        self.detailMemories.detailMode = mode
         return self.processor.set("detailMode", mode.value)
 
     def getDetailMode(self):

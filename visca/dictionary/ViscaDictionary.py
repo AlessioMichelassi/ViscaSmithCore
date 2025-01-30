@@ -48,7 +48,7 @@ VISCADICTIONARY = {
             "state": "_iris"
         },
         "irisValue": {
-            "cmd": "04 4B 00 00 pp",
+            "cmd": "04 4B pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente l'apertura dell'iris",
             "allowed_values": [
@@ -75,7 +75,7 @@ VISCADICTIONARY = {
                 20
             ],
             "inquire": "04 4B",
-            "reply_format": "00 00 pp",
+            "reply_format": "pp",
             "placeholder": [
                 "pp"
             ],
@@ -112,7 +112,7 @@ VISCADICTIONARY = {
             "state": "_gain"
         },
         "gainValue": {
-            "cmd": "04 4C 00 00 pp",
+            "cmd": "04 4C pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il guadagno",
             "allowed_values": [
@@ -134,7 +134,7 @@ VISCADICTIONARY = {
                 15
             ],
             "inquire": "04 4C",
-            "reply_format": "00 00 pp",
+            "reply_format": "pp",
             "placeholder": [
                 "pp"
             ],
@@ -185,7 +185,7 @@ VISCADICTIONARY = {
             "state": "_gain_point_mode"
         },
         "gainPointValue": {
-            "cmd": "01 05 4C pp",
+            "cmd": "05 4C pp",
             "type": "setWithValue",
             "tip": "Imposta il valore del punto guadagno",
             "allowed_values": [
@@ -308,7 +308,7 @@ VISCADICTIONARY = {
             "state": "_shutter"
         },
         "shutterValue": {
-            "cmd": "04 4A 00 00 pp",
+            "cmd": "04 4A pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il valore dello shutter",
             "allowed_values": [
@@ -345,14 +345,14 @@ VISCADICTIONARY = {
                 30
             ],
             "inquire": "04 4A",
-            "reply_format": "00 00 pp",
+            "reply_format": "pp",
             "placeholder": [
                 "pp"
             ],
             "state": "_shutter"
         },
         "maxShutterValue": {
-            "cmd": "05 2A 00 pp",
+            "cmd": "05 2A pp",
             "type": "setWithValue",
             "tip": "Imposta il valore massimo dello shutter",
             "allowed_values": [
@@ -388,7 +388,7 @@ VISCADICTIONARY = {
                 29,
                 30
             ],
-            "inquire": "05 2A 00",
+            "inquire": "05 2A",
             "reply_format": "pp",
             "placeholder": [
                 "pp"
@@ -514,7 +514,7 @@ VISCADICTIONARY = {
             "state": "_exp_comp_mode"
         },
         "expCompValue": {
-            "cmd": "04 4E 00 00 pp",
+            "cmd": "04 4E pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il valore della compensazione esposizione",
             "allowed_values": [
@@ -528,7 +528,7 @@ VISCADICTIONARY = {
                 7
             ],
             "inquire": "04 4E",
-            "reply_format": "00 00 pp pp",
+            "reply_format": "pp pp",
             "placeholder": [
                 "pp"
             ],
@@ -610,7 +610,7 @@ VISCADICTIONARY = {
             "state": "_visibility_enhancer_mode"
         },
         "visibilityEnhancerValues": {
-            "cmd": "04 2D 00 00 pp qq rr 00 00 00 00 FF",
+            "cmd": "04 2D pp qq rr 00 00 00 00 FF",
             "type": "setWithValues",
             "tip": "Imposta il livello, la compensazione e la luminosit\u00c3\u00a0 del Visibility Enhancer",
             "allowed_values": {
@@ -641,7 +641,7 @@ VISCADICTIONARY = {
                 "rr"
             ],
             "inquire": "04 2D",
-            "reply_format": "00 00 pp qq rr 00 00 00 00",
+            "reply_format": "pp qq rr 00 00 00 00",
             "state": "_visibility_enhancer_values"
         },
         "lowLightBiasMode": {
@@ -756,7 +756,7 @@ VISCADICTIONARY = {
             "state": "_rGain"
         },
         "rGainValue": {
-            "cmd": "04 43 00 00 pp pp",
+            "cmd": "04 43 pp pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il valore del Red Gain",
             "allowed_values": [
@@ -1055,7 +1055,7 @@ VISCADICTIONARY = {
             "state": "_bGain"
         },
         "bGainValue": {
-            "cmd": "04 44 00 00 pp pp",
+            "cmd": "04 44 pp pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il valore del Blue Gain",
             "allowed_values": [
@@ -1334,7 +1334,7 @@ VISCADICTIONARY = {
                 4,
                 5
             ],
-            "inquire": None,
+            "inquire": "04 56",
             "reply_format": "pp",
             "placeholder": [
                 "p"
@@ -1350,7 +1350,7 @@ VISCADICTIONARY = {
                 0,
                 7
             ],
-            "inquire": None,
+            "inquire": "7E 01 2E 01 00",
             "reply_format": "pp",
             "placeholder": [
                 "pp"
@@ -1389,7 +1389,7 @@ VISCADICTIONARY = {
                 10,
                 11
             ],
-            "inquire": None,
+            "inquire": "7E 01 3D",
             "reply_format": "pp",
             "placeholder": [
                 "pp"
@@ -1427,7 +1427,7 @@ VISCADICTIONARY = {
             "state": "_level"
         },
         "levelValue": {
-            "cmd": "04 49 00 00 pp",
+            "cmd": "04 49 pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il livello",
             "allowed_values": [
@@ -1447,7 +1447,7 @@ VISCADICTIONARY = {
                 13,
                 14
             ],
-            "inquire": None,
+            "inquire": "04 49",
             "reply_format": "pp",
             "placeholder": [
                 "pp"
@@ -1485,7 +1485,7 @@ VISCADICTIONARY = {
             "state": "_phase"
         },
         "phaseValue": {
-            "cmd": "04 4F 00 00 pp",
+            "cmd": "04 4F pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente la fase",
             "allowed_values": [
@@ -1504,7 +1504,7 @@ VISCADICTIONARY = {
                 12,
                 13
             ],
-            "inquire": None,
+            "inquire": "04 4F",
             "reply_format": "pp",
             "placeholder": [
                 "pp"
@@ -1512,7 +1512,7 @@ VISCADICTIONARY = {
             "state": "_phaseValue"
         },
         "rGValue": {
-            "cmd": "01 7E 01 7A pp pp",
+            "cmd": "7E 01 7A pp pp",
             "type": "setWithValue",
             "tip": "Imposta direttamente il valore R-B",
             "allowed_values": [
@@ -1520,7 +1520,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7A",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1536,7 +1536,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7B",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1552,7 +1552,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7C",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1568,7 +1568,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7D",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1584,7 +1584,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7E",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1600,7 +1600,7 @@ VISCADICTIONARY = {
                 0,
                 99
             ],
-            "inquire": None,
+            "inquire": "7E 01 7F",
             "reply_format": "pp pp",
             "placeholder": [
                 "pp"
@@ -1640,7 +1640,7 @@ VISCADICTIONARY = {
             "state": "_detailLevel"
         },
         "detailLevelValue": {
-            "cmd": "04 42 00 00 pp ",
+            "cmd": "04 42 pp ",
             "type": "setWithValue",
             "tip": "Imposta direttamente il livello del dettaglio",
             "allowed_values": [
@@ -7150,7 +7150,7 @@ VISCADICTIONARY = {
             "state": "_brightness"
         },
         "cameracontrastValue": {
-            "cmd": "04 A2 00 00 pp",
+            "cmd": "04 A2 pp",
             "type": "setWithValue",
             "tip": "Imposta il livello di contrasto",
             "allowed_values": [
@@ -7215,7 +7215,7 @@ VISCADICTIONARY = {
             "state": "_setting_save"
         },
         "camerairidixValue": {
-            "cmd": "04 A7 00 00 pp",
+            "cmd": "04 A7 pp",
             "type": "setWithValue",
             "tip": "Imposta il livello di Iridix",
             "allowed_values": [
@@ -7520,7 +7520,7 @@ VISCADICTIONARY = {
             ]
         },
         "colorhueValue": {
-            "cmd": "04 4F 00 00 pp",
+            "cmd": "04 4F pp",
             "type": "setWithValue",
             "tip": "Imposta la tonalit\u00c3\u00a0 colore",
             "allowed_values": [

@@ -1,12 +1,13 @@
+
 from visca.dictionary.enumerations import *
 
 
 class KneeMemories:
     # Valori di default
-    _knee_setting : EnableStateEnum
-    _knee_mode : KneeEnum
-    _knee_slope_value : int
-    _knee_point_value : int
+    _knee_setting: EnableStateEnum
+    _knee_mode: KneeEnum
+    _knee_slope_value: int
+    _knee_point_value: int
 
     def __init__(self):
         self._knee_setting = EnableStateEnum.OFF
@@ -15,54 +16,57 @@ class KneeMemories:
         self._knee_point_value = 0
 
     @property
-    def knee_setting(self):
+    def kneeSetting(self):
         return self._knee_setting
 
-    @knee_setting.setter
-    def knee_setting(self, mode: EnableStateEnum):
+    @kneeSetting.setter
+    def kneeSetting(self, mode: EnableStateEnum):
         self._knee_setting = mode
 
     @property
-    def knee_mode(self):
+    def kneeMode(self):
         return self._knee_mode
 
-    @knee_mode.setter
-    def knee_mode(self, mode: KneeEnum):
+    @kneeMode.setter
+    def kneeMode(self, mode: KneeEnum):
         self._knee_mode = mode
 
     @property
-    def knee_slope_value(self):
+    def kneeSlopeValue(self):
         return self._knee_slope_value
 
-    @knee_slope_value.setter
-    def knee_slope_value(self, value: int):
+    @kneeSlopeValue.setter
+    def kneeSlopeValue(self, value: int):
         self._knee_slope_value = value
 
     @property
-    def knee_point_value(self):
+    def kneePointValue(self):
         return self._knee_point_value
 
-    @knee_point_value.setter
-    def knee_point_value(self, value: int):
+    @kneePointValue.setter
+    def kneePointValue(self, value: int):
         self._knee_point_value = value
 
     def serialize(self):
         return {
-            "knee_setting": self._knee_setting,
-            "knee_mode": self._knee_mode,
-            "knee_slope_value": self._knee_slope_value,
-            "knee_point_value": self._knee_point_value
+            "kneeSetting": self._knee_setting.name,
+            "kneeMode": self._knee_mode.name,
+            "kneeSlopeValue": self._knee_slope_value,
+            "kneePointValue": self._knee_point_value
         }
 
     def deserialize(self, data):
-        try :
-            self._knee_setting = self.returnEnumerationFromSomething(data["knee_setting"], EnableStateEnum)
-            self._knee_mode = self.returnEnumerationFromSomething(data["knee_mode"], EnumMode)
-            self._knee_slope_value = data["knee_slope_value"]
-            self._knee_point_value = data["knee_point_value"]
-
-        except KeyError as e:
-            print(f"KeyError: {e}")
+        """
+        Carica i valori da un dizionario, gestendo eventuali valori mancanti.
+        """
+        self._knee_setting = self.returnEnumerationFromSomething(
+            data.get("kneeSetting", self._knee_setting.name), EnableStateEnum
+        )
+        self._knee_mode = self.returnEnumerationFromSomething(
+            data.get("kneeMode", self._knee_mode.name), KneeEnum
+        )
+        self._knee_slope_value = data.get("kneeSlopeValue", self._knee_slope_value)
+        self._knee_point_value = data.get("kneePointValue", self._knee_point_value)
 
     @staticmethod
     def returnEnumerationFromSomething(something, enumeration):
@@ -90,4 +94,3 @@ class KneeMemories:
                 raise ValueError(f"Impossibile convertire il valore '{something}' in {enumeration.__name__}.")
         except (ValueError, KeyError, TypeError) as e:
             raise ValueError(f"Errore durante la conversione di '{something}' in {enumeration.__name__}: {e}")
-

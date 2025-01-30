@@ -419,7 +419,7 @@ class ExposureInterface(BaseInterfaceClass):
         Reimposta il valore della compensazione dell'esposizione.
         """
         self._last_command = None
-        self.exposureMemories.exp_comp_value = 0
+        self.exposureMemories.expCompValue = 0
         return self.processor.set("expCompReset")
 
     def exposureCompensationUp(self):
@@ -427,8 +427,8 @@ class ExposureInterface(BaseInterfaceClass):
         Incrementa il valore della compensazione dell'esposizione di 1, fino al massimo consentito (+10).
         """
         self._last_command = None
-        if self.exposureMemories.exp_comp_value < 10:
-            self.exposureMemories.exp_comp_value += 1
+        if self.exposureMemories.expCompValue < 10:
+            self.exposureMemories.expCompValue += 1
         return self.processor.set("expCompUp")
 
     def exposureCompensationDown(self):
@@ -436,8 +436,8 @@ class ExposureInterface(BaseInterfaceClass):
         Decrementa il valore della compensazione dell'esposizione di 1, fino al minimo consentito (-10).
         """
         self._last_command = None
-        if self.exposureMemories.exp_comp_value > -10:
-            self.exposureMemories.exp_comp_value -= 1
+        if self.exposureMemories.expCompValue > -10:
+            self.exposureMemories.expCompValue -= 1
         return self.processor.set("expCompDown")
 
 
@@ -532,7 +532,7 @@ class ExposureInterface(BaseInterfaceClass):
         :return: Comando inviato.
         """
         self._last_command = None
-        self.exposureMemories.low_light_bias_mode = enabled
+        self.exposureMemories.lowLightBiasMode = enabled
         return self.processor.set("lowLightBiasMode", enabled.value)
 
     def getLowLightBiasMode(self):
@@ -550,7 +550,7 @@ class ExposureInterface(BaseInterfaceClass):
         :return: Comando inviato.
         """
         self._last_command = None
-        self.exposureMemories.low_light_bias_value = value
+        self.exposureMemories.lowLightBiasisValue = value
         return self.processor.set("lowLightBiasValue", value.value)
 
     def getLowLightBiasLevel(self):

@@ -1,10 +1,9 @@
-
 from visca.dictionary.enumerations import *
 
 
 class ExposureMemories:
 
-    _exposureMode: ExposureModeEnum
+    _exposure_mode: ExposureModeEnum
     _gainValue: GainValueEnum
     _shutterValue: ShutterSpeedEnum_60
     _irisValue: IrisSettingsEnum
@@ -31,7 +30,7 @@ class ExposureMemories:
         l'interfaccia grafica. Questi valori possono essere salvati e caricati
         per mantenere le impostazioni preferite dell'utente.
         """
-        self._exposureMode = ExposureModeEnum.MANUAL
+        self._exposure_mode = ExposureModeEnum.MANUAL
         self._gainValue = GainValueEnum.GAIN_0DB
         self._shutterValue = ShutterSpeedEnum_60.s1_60
         self._irisValue = IrisSettingsEnum.F2_0
@@ -57,11 +56,11 @@ class ExposureMemories:
 
     @property
     def exposureMode(self) -> ExposureModeEnum:
-        return self._exposureMode
+        return self._exposure_mode
 
     @exposureMode.setter
     def exposureMode(self, value: ExposureModeEnum):
-        self._exposureMode = value
+        self._exposure_mode = value
 
     @property
     def gainValue(self) -> GainValueEnum:
@@ -88,131 +87,133 @@ class ExposureMemories:
         self._irisValue = value
 
     @property
-    def ae_speed_value(self) -> int:
+    def aeSpeedValue(self) -> int:
         return self._ae_speed_value
 
-    @ae_speed_value.setter
-    def ae_speed_value(self, value: int):
+    @aeSpeedValue.setter
+    def aeSpeedValue(self, value: int):
         self._ae_speed_value = value
 
     @property
-    def auto_slow_shutter_mode(self) -> EnableStateEnum:
+    def autoSlowShutterMode(self) -> EnableStateEnum:
         return self._auto_slow_shutter_mode
 
-    @auto_slow_shutter_mode.setter
-    def auto_slow_shutter_mode(self, value: EnableStateEnum):
+    @autoSlowShutterMode.setter
+    def autoSlowShutterMode(self, value: EnableStateEnum):
         self._auto_slow_shutter_mode = value
 
     @property
-    def backlight_mode(self) -> EnableStateEnum:
+    def backlightMode(self) -> EnableStateEnum:
         return self._backlight_mode
 
-    @backlight_mode.setter
-    def backlight_mode(self, value: EnableStateEnum):
+    @backlightMode.setter
+    def backlightMode(self, value: EnableStateEnum):
         self._backlight_mode = value
 
     @property
-    def exp_comp_mode(self) -> EnableStateEnum:
+    def expCompMode(self) -> EnableStateEnum:
         return self._exp_comp_mode
 
-    @exp_comp_mode.setter
-    def exp_comp_mode(self, value: EnableStateEnum):
+    @expCompMode.setter
+    def expCompMode(self, value: EnableStateEnum):
         self._exp_comp_mode = value
 
     @property
-    def exp_comp_value(self) -> int:
+    def expCompValue(self) -> int:
         return self._exp_comp_value
 
-    @exp_comp_value.setter
-    def exp_comp_value(self, value: int):
+    @expCompValue.setter
+    def expCompValue(self, value: int):
         self._exp_comp_value = value
 
     @property
-    def gain_limit_value(self) -> GainValueEnum:
+    def gainLimitValue(self) -> GainValueEnum:
         return self._gain_limit_value
 
-    @gain_limit_value.setter
-    def gain_limit_value(self, value: GainValueEnum):
+    @gainLimitValue.setter
+    def gainLimitValue(self, value: GainValueEnum):
         self._gain_limit_value = value
 
     @property
-    def gain_point_mode(self) -> EnableStateEnum:
+    def gainPointMode(self) -> EnableStateEnum:
         return self._gain_point_mode
 
-    @gain_point_mode.setter
-    def gain_point_mode(self, value: EnableStateEnum):
+    @gainPointMode.setter
+    def gainPointMode(self, value: EnableStateEnum):
         self._gain_point_mode = value
 
     @property
-    def gain_point_value(self) -> GainValueEnum:
+    def gainPointValue(self) -> GainValueEnum:
         return self._gain_point_value
 
-    @gain_point_value.setter
-    def gain_point_value(self, value: GainValueEnum):
+    @gainPointValue.setter
+    def gainPointValue(self, value: GainValueEnum):
         self._gain_point_value = value
 
     @property
-    def max_shutter_value(self) -> ShutterSpeedEnum_60:
+    def maxShutterValue(self) -> ShutterSpeedEnum_60:
         return self._max_shutter_value
 
-    @max_shutter_value.setter
-    def max_shutter_value(self, value: ShutterSpeedEnum_60):
+    @maxShutterValue.setter
+    def maxShutterValue(self, value: ShutterSpeedEnum_60):
         self._max_shutter_value = value
 
     @property
-    def min_shutter_value(self) -> ShutterSpeedEnum_60:
+    def minShutterValue(self) -> ShutterSpeedEnum_60:
         return self._min_shutter_value
 
-    @min_shutter_value.setter
-    def min_shutter_value(self, value: ShutterSpeedEnum_60):
+    @minShutterValue.setter
+    def minShutterValue(self, value: ShutterSpeedEnum_60):
         self._min_shutter_value = value
 
     @property
-    def spotlight_mode(self) -> EnableStateEnum:
+    def spotlightMode(self) -> EnableStateEnum:
         return self._spotlight_mode
 
-    @spotlight_mode.setter
-    def spotlight_mode(self, value: EnableStateEnum):
+    @spotlightMode.setter
+    def spotlightMode(self, value: EnableStateEnum):
         self._spotlight_mode = value
 
     @property
-    def highSensitivity_mode(self) -> EnableStateEnum:
+    def highSensitivityMode(self) -> EnableStateEnum:
         return self._highSensitivity_mode
 
-    @highSensitivity_mode.setter
-    def highSensitivity_mode(self, value: EnableStateEnum):
+    @highSensitivityMode.setter
+    def highSensitivityMode(self, value: EnableStateEnum):
         self._highSensitivity_mode = value
 
     @property
-    def visibility_enhancer_mode(self) -> EnableStateEnum:
+    def visibilityEnhancerMode(self) -> EnableStateEnum:
         return self._visibility_enhancer_mode
 
-    @visibility_enhancer_mode.setter
-    def visibility_enhancer_mode(self, value: EnableStateEnum):
+    @visibilityEnhancerMode.setter
+    def visibilityEnhancerMode(self, value: EnableStateEnum):
         self._visibility_enhancer_mode = value
 
     @property
-    def visibility_enhancer_level(self) -> (VisibilityEnhancerEffectLevel, VisibilityEnhancerBrightnessCompensation, VisibilityEnhancerCompensationLevel):
+    def visibilityEnhancerValues(self) -> (
+    VisibilityEnhancerEffectLevel, VisibilityEnhancerBrightnessCompensation, VisibilityEnhancerCompensationLevel):
         return self._visibility_enhancer_level
 
-    @visibility_enhancer_level.setter
-    def visibility_enhancer_level(self, value: (VisibilityEnhancerEffectLevel, VisibilityEnhancerBrightnessCompensation, VisibilityEnhancerCompensationLevel)):
+    @visibilityEnhancerValues.setter
+    def visibilityEnhancerValues(self, value: (
+    VisibilityEnhancerEffectLevel, VisibilityEnhancerBrightnessCompensation, VisibilityEnhancerCompensationLevel)):
         self._visibility_enhancer_level = value
 
     @property
-    def lowLightBiasis_mode(self) -> EnableStateEnum:
+    def lowLightBiasMode(self) -> EnableStateEnum:
         return self._lowLightBiasis_mode
 
-    @lowLightBiasis_mode.setter
-    def lowLightBiasis_mode(self, value: EnableStateEnum):
+    @lowLightBiasMode.setter
+    def lowLightBiasMode(self, value: EnableStateEnum):
         self._lowLightBiasis_mode = value
 
     @property
-    def lowLightBiasis_value(self) -> LowLightBiasLevel:
+    def lowLightBiasValue(self) -> LowLightBiasLevel:
         return self._lowLightBiasis_value
 
-    @lowLightBiasis_value.setter
-    def lowLightBiasis_value(self, value: LowLightBiasLevel):
+    @lowLightBiasValue.setter
+    def lowLightBiasValue(self, value: LowLightBiasLevel):
         self._lowLightBiasis_value = value
 
     def serialize(self) -> dict:
@@ -221,7 +222,7 @@ class ExposureMemories:
         :return:
         """
         return {
-            "exposure_mode": self._exposureMode,
+            "exposure_mode": self._exposure_mode,
             "gain_value": self._gainValue,
             "shutter_value": self._shutterValue,
             "iris_value": self._irisValue,
@@ -253,8 +254,8 @@ class ExposureMemories:
             if not isinstance(data, dict):
                 raise ValueError("I dati devono essere un dizionario.")
 
-            self._exposureMode = self.returnEnumerationFromSomething(
-                data.get("exposure_mode", self._exposureMode), ExposureModeEnum
+            self._exposure_mode = self.returnEnumerationFromSomething(
+                data.get("exposure_mode", self._exposure_mode), ExposureModeEnum
             )
             self._gainValue = self.returnEnumerationFromSomething(
                 data.get("gainValue", self._gainValue), GainValueEnum

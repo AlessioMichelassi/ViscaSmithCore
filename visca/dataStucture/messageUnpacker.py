@@ -30,18 +30,16 @@ class MessageUnpacker:
 
     def unpack_message(self, data: bytes) -> dict:
         """
-        Analizza il pacchetto 'data' e restituisce un dizionario con:
-        - message_type: str (ad es. "ack", "completion", "error", "command", "handshake", "ifclear")
-        - sequence_number: int
-        - payload: bytes (il contenuto 'grezzo' del payload, se presente)
-        - camera_id: int (se presente)
-        - preamble: int (se presente)
-        - command_payload: bytes (eventuale parte dopo cameraID+preambolo)
-        - raw_data: bytes (il pacchetto originale)
-
-        NB: Per handshake/IFClear, potresti usare controlli specifici,
-        perché a volte hanno formati speciali diversi dal “classico” header.
+        Analizza il pacchetto ricevuto e restituisce un dizionario con:
+        - message_type: Tipo del messaggio (es. "ack", "completion", "error", "command_set", ecc.)
+        - sequence_number: Numero di sequenza (se presente)
+        - payload: Contenuto grezzo del pacchetto (se presente)
+        - camera_id: ID della camera (se presente)
+        - preamble: Byte preambolo (se presente)
+        - command_payload: Dati effettivi del comando (se presente)
+        - raw_data: Il pacchetto originale
         """
+
         result = {
             "message_type": None,
             "sequence_number": None,
@@ -49,77 +47,78 @@ class MessageUnpacker:
             "camera_id": None,
             "preamble": None,
             "command_payload": b"",
-            "raw_data": data
+            "raw_data": data,
+            "error_code": None
         }
 
-        # Controllo lunghezza minima
         if len(data) < 8:
+            print(f" ❌ [unpack_message] Pacchetto troppo corto: {data.hex()}")
             result["message_type"] = "invalid"
             return result
 
+        # Estrarre header e payload
         header = data[:8]
-        seq_bytes = header[4:8]
-        seq_number = int.from_bytes(seq_bytes, 'big')
-        payload = data[8:]  # TUTTA la parte rimanente dopo l'header
+        seq_number = int.from_bytes(header[4:8], 'big')
+        payload = data[8:]
+
         result["sequence_number"] = seq_number
-        print(f"header: {header.hex()} | payload: {payload.hex()} | seq: {seq_number}")
-        # 1) Check handshake / ifclear (o altri messaggi speciali)
-        #    confrontando direttamente l'intero 'data'
+        result["payload"] = payload
+
+        print(f"Header: {header.hex()} | Payload: {payload.hex()} | Seq: {seq_number}")
+
+        # Controllo messaggi speciali
         if self.isAck(payload):
-            print("ACK detected")
             result["message_type"] = "ack"
             return result
         elif self.isCompletion(payload):
-            print("Completion detected")
             result["message_type"] = "completion"
             return result
         elif self.isError(payload):
-            print("Error detected")
+            print(f"\t ❌ ERROR FROM UNPACKER: {payload.hex()} | Message: {data.hex()}")
             result["message_type"] = "error"
+            result["error_code"] = payload[1]
+            print(f"\t ❌ Error code: {result['error_code']}")
             return result
 
-        packet_type = data[0:2]  # 0x01 0x00 tipicamente
-        length_bytes = data[2:4]
-        seq_bytes = data[4:8]
-        payload = data[8:]  # tutti i byte dopo i primi 8
-
-        payload_length = int.from_bytes(length_bytes, 'big', signed=False)
-        sequence_number = int.from_bytes(seq_bytes, 'big', signed=False)
-        result["sequence_number"] = sequence_number
-
-        # 3) Se il payload inizia con 0x50, assumiamo che sia una "inquire_reply"
-        #    (oppure potresti controllare se "payload[0] == 0x50" e la lunghezza corrisponde)
+        # Controllo se è una risposta a una richiesta "inquire"
         if payload.startswith(b'\x50'):
-            # Esempio: se server manda: header... seqNumber..., 0x50 + [comando inquired] + [valore] + terminator
-            # Se l’ultimo byte è 0xFF, toglilo
-            print("Inquire reply detected")
-            if payload.endswith(b'\xff'):
-                core = payload[1:-1]  # tolgo 0x50 e 0xff
-            else:
-                core = payload[1:]
-            print(f"Core: {core.hex()}")
-            # A questo punto, 'core' potrebbe essere "04 39 03" per dire "exposureMode = 3"
+            return self.unpackInquireReply(payload, result)
+        else:
+            return self.unpackCommand(payload, result)
 
-            result["message_type"] = "inquire_reply"
-            result["command_payload"] = core
-            return result
-            # 4) Altrimenti, è un "comando" classico.
+
+    def unpackInquireReply(self, payload: bytes, result: dict):
+        print("Inquire reply detected")
+        # Se termina con 0xFF, rimuovilo
+        core = payload[1:-1] if payload.endswith(b'\xff') else payload[1:]
+
+        # Se la risposta è a 1 o 2 byte, gestirla dinamicamente
+        if len(core) == 1:
+            value = int.from_bytes(core, "big", signed=True)  # Signed per supportare valori negativi
+        elif len(core) == 2:
+            value = int.from_bytes(core, "big", signed=True)
+        else:
+            value = core  # Se il formato non è chiaro, lascia il byte grezzo
+
+        print(f"Core extracted: {core.hex()} | Decoded value: {value}")
+
+        result.update({
+            "message_type": "inquire_reply",
+            "command_payload": core,
+            "value": value  # Aggiungiamo anche il valore decodificato
+        })
+        return result
+
+    def unpackCommand(self, payload: bytes, result: dict):
+        # Interpretazione comando classico
         if len(payload) >= 2:
-            camera_id = payload[0]
-            preamble = payload[1]
-            # Se c'è un 0xFF in coda, lo togli
-            if payload.endswith(b'\xff'):
-                command_payload = payload[2:-1]
-            else:
-                command_payload = payload[2:]
+            result["camera_id"] = payload[0]
+            result["preamble"] = payload[1]
+            result["command_payload"] = payload[2:-1] if payload.endswith(b'\xff') else payload[2:]
 
-            result["camera_id"] = camera_id
-            result["preamble"] = preamble
-            result["command_payload"] = command_payload
-
-            if preamble == 0x01:
+            if result["preamble"] == 0x01:
                 result["message_type"] = "command_set"
-            elif preamble == 0x09:
+            elif result["preamble"] == 0x09:
                 result["message_type"] = "command_inquire"
             else:
                 result["message_type"] = "unknown_command"

@@ -96,7 +96,7 @@ class GammaInterface(BaseInterfaceClass):
         return self.processor.inquire("blackGammaLevelValue")
 
     # Black Gamma Range
-    def setBlackGammaRangeValue(self, mode: BlackGammaRAngeEnum):
+    def setBlackGammaRangeValue(self, mode: BlackGammaRangeEnum):
         self._last_command = None
         self.gammaMemories.black_gamma_range_value = mode
         return self.processor.set("blackGammaRangeValue", mode.value)
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     print(f"cmd getBlackGammaLevelValue")
     print(gammaInterface.getBlackGammaLevelValue())
     print(f"cmd setBlackGammaRangeValue 1")
-    print(gammaInterface.setBlackGammaRangeValue(BlackGammaRAngeEnum.WIDE))
+    print(gammaInterface.setBlackGammaRangeValue(BlackGammaRangeEnum.WIDE))
     print(f"cmd getBlackGammaRangeValue")
     print(gammaInterface.getBlackGammaRangeValue())
     print(f"cmd resetBlackLevel")

@@ -2,17 +2,9 @@ from visca.dictionary.enumerations import *
 
 
 class SystemMemories:
-
-    _ir_receive: EnableStateEnum
-    _h_phase_value: int
-    _img_flip: EnableStateEnum
-    _camera_id: int
-    _menu_mode: EnableStateEnum
-    _ir_cut_filter: EnableStateEnum
-    _tally_mode: EnableStateEnum
-    _tally_level: TallyLevel
-    _hdmi_color_space: HdmiColorFormatEnum
-    _power_state: int
+    """
+    Classe per gestire i parametri di sistema della telecamera VISCA.
+    """
 
     def __init__(self):
         # Variabili di stato
@@ -21,141 +13,145 @@ class SystemMemories:
         self._img_flip = EnableStateEnum.OFF
         self._camera_id = 0
         self._menu_mode = EnableStateEnum.OFF
-        self._ir_cut_filter = EnableStateEnum .OFF
-        self._tally_mode = EnableStateEnum .ON
+        self._ir_cut_filter = EnableStateEnum.OFF
+        self._tally_mode = EnableStateEnum.ON
         self._tally_level = TallyLevel.HIGH
         self._hdmi_color_space = HdmiColorFormatEnum.YCbCr
         self._power_state = 2
 
     @property
-    def ir_receive(self):
+    def irReceive(self):
         return self._ir_receive
 
-    @ir_receive.setter
-    def ir_receive(self, value):
+    @irReceive.setter
+    def irReceive(self, value: EnableStateEnum):
         self._ir_receive = value
 
     @property
-    def h_phase_value(self):
+    def hPhaseValue(self):
         return self._h_phase_value
 
-    @h_phase_value.setter
-    def h_phase_value(self, value):
+    @hPhaseValue.setter
+    def hPhaseValue(self, value: int):
         self._h_phase_value = value
 
     @property
-    def img_flip(self):
+    def imgFlip(self):
         return self._img_flip
 
-    @img_flip.setter
-    def img_flip(self, value):
+    @imgFlip.setter
+    def imgFlip(self, value: EnableStateEnum):
         self._img_flip = value
 
     @property
-    def camera_id(self):
+    def cameraId(self):
         return self._camera_id
 
-    @camera_id.setter
-    def camera_id(self, value):
+    @cameraId.setter
+    def cameraId(self, value: int):
         self._camera_id = value
 
     @property
-    def menu_mode(self):
+    def menuMode(self):
         return self._menu_mode
 
-    @menu_mode.setter
-    def menu_mode(self, value):
+    @menuMode.setter
+    def menuMode(self, value: EnableStateEnum):
         self._menu_mode = value
 
     @property
-    def ir_cut_filter(self):
+    def irCutFilter(self):
         return self._ir_cut_filter
 
-    @ir_cut_filter.setter
-    def ir_cut_filter(self, value):
+    @irCutFilter.setter
+    def irCutFilter(self, value: EnableStateEnum):
         self._ir_cut_filter = value
 
     @property
-    def tally_mode(self):
+    def tallyMode(self):
         return self._tally_mode
 
-    @tally_mode.setter
-    def tally_mode(self, value):
+    @tallyMode.setter
+    def tallyMode(self, value: EnableStateEnum):
         self._tally_mode = value
 
     @property
-    def tally_level(self):
+    def tallyLevel(self):
         return self._tally_level
 
-    @tally_level.setter
-    def tally_level(self, value):
+    @tallyLevel.setter
+    def tallyLevel(self, value: TallyLevel):
         self._tally_level = value
 
     @property
-    def hdmi_color_space(self):
+    def hdmiColorSpace(self):
         return self._hdmi_color_space
 
-    @hdmi_color_space.setter
-    def hdmi_color_space(self, value):
+    @hdmiColorSpace.setter
+    def hdmiColorSpace(self, value: HdmiColorFormatEnum):
         self._hdmi_color_space = value
 
     @property
-    def power_state(self):
+    def powerState(self):
         return self._power_state
 
-    @power_state.setter
-    def power_state(self, value):
+    @powerState.setter
+    def powerState(self, value: int):
         self._power_state = value
 
     def serialize(self):
+        """
+        Converte l'oggetto in un dizionario serializzabile (compatibile con JSON).
+        """
         return {
-            "ir_receive": self._ir_receive,
-            "h_phase_value": self._h_phase_value,
-            "img_flip": self._img_flip,
-            "camera_id": self._camera_id,
-            "menu_mode": self._menu_mode,
-            "ir_cut_filter": self._ir_cut_filter,
-            "tally_mode": self._tally_mode,
-            "tally_level": self._tally_level,
-            "hdmi_color_space": self._hdmi_color_space,
-            "power_state": self._power_state
+            "irReceive": self._ir_receive.name,
+            "hPhaseValue": self._h_phase_value,
+            "imgFlip": self._img_flip.name,
+            "cameraId": self._camera_id,
+            "menuMode": self._menu_mode.name,
+            "irCutFilter": self._ir_cut_filter.name,
+            "tallyMode": self._tally_mode.name,
+            "tallyLevel": self._tally_level.name,
+            "hdmiColorSpace": self._hdmi_color_space.name,
+            "powerState": self._power_state
         }
 
+    def deserialize(self, data: dict):
+        """
+        Carica i valori da un dizionario, convertendo le stringhe negli Enum corretti.
+        """
+        self._ir_receive = self.returnEnumerationFromSomething(data.get("irReceive", self._ir_receive.name), EnableStateEnum)
+        self._h_phase_value = data.get("hPhaseValue", self._h_phase_value)
+        self._img_flip = self.returnEnumerationFromSomething(data.get("imgFlip", self._img_flip.name), EnableStateEnum)
+        self._camera_id = data.get("cameraId", self._camera_id)
+        self._menu_mode = self.returnEnumerationFromSomething(data.get("menuMode", self._menu_mode.name), EnableStateEnum)
+        self._ir_cut_filter = self.returnEnumerationFromSomething(data.get("irCutFilter", self._ir_cut_filter.name), EnableStateEnum)
+        self._tally_mode = self.returnEnumerationFromSomething(data.get("tallyMode", self._tally_mode.name), EnableStateEnum)
+        self._tally_level = self.returnEnumerationFromSomething(data.get("tallyLevel", self._tally_level.name), TallyLevel)
+        self._hdmi_color_space = self.returnEnumerationFromSomething(data.get("hdmiColorSpace", self._hdmi_color_space.name), HdmiColorFormatEnum)
+        self._power_state = data.get("powerState", self._power_state)
+
     @staticmethod
-    def returnEnumerationFromSomething(something, enumeration):
+    def returnEnumerationFromSomething(value, enumeration):
         """
         Converte un valore in un'istanza dell'enumerazione specificata.
 
-        :param something: Il valore da convertire.
+        :param value: Il valore da convertire.
         :param enumeration: L'enumerazione target.
         :return: Un'istanza dell'enumerazione.
         :raises ValueError: Se la conversione non è possibile.
         """
         try:
-            if isinstance(something, enumeration):
-                return something  # È già un'istanza dell'enumerazione
-            elif isinstance(something, int):
-                return enumeration(something)  # Converte direttamente dall'intero
-            elif isinstance(something, str):
-                # Prova prima a convertire dal nome dell'enumerazione
-                if something in enumeration.__members__:
-                    return enumeration[something]
-                # Se non è un nome, prova a convertirlo in un intero
-                num = int(something)
-                return enumeration(num)
+            if isinstance(value, enumeration):
+                return value  # È già un'istanza dell'enumerazione
+            elif isinstance(value, int):
+                return enumeration(value)  # Converte direttamente dall'intero
+            elif isinstance(value, str):
+                # Prova prima a convertire dal nome Enum
+                if value in enumeration.__members__:
+                    return enumeration[value]
+                return enumeration(int(value))  # Prova con intero
             else:
-                raise ValueError(f"Impossibile convertire il valore '{something}' in {enumeration.__name__}.")
+                raise ValueError(f"Impossibile convertire il valore '{value}' in {enumeration.__name__}.")
         except (ValueError, KeyError, TypeError) as e:
-            raise ValueError(f"Errore durante la conversione di '{something}' in {enumeration.__name__}: {e}")
-
-    def deserialize(self, data: dict):
-        self.ir_receive = self.returnEnumerationFromSomething(data["ir_receive"], EnableStateEnum)
-        self.h_phase_value = data["h_phase_value"]
-        self.img_flip = self.returnEnumerationFromSomething(data["img_flip"], EnableStateEnum)
-        self.camera_id = data["camera_id"]
-        self.menu_mode = self.returnEnumerationFromSomething(data["menu_mode"], EnableStateEnum)
-        self.ir_cut_filter = self.returnEnumerationFromSomething(data["ir_cut_filter"], EnableStateEnum)
-        self.tally_mode = self.returnEnumerationFromSomething(data["tally_mode"], EnableStateEnum)
-        self.tally_level = self.returnEnumerationFromSomething(data["tally_level"], TallyLevel)
-        self.hdmi_color_space = self.returnEnumerationFromSomething(data["hdmi_color_space"], HdmiColorFormatEnum)
-        self.power_state = data["power_state"]
+            raise ValueError(f"Errore durante la conversione di '{value}' in {enumeration.__name__}: {e}")

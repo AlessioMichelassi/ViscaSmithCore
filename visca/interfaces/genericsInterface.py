@@ -146,11 +146,11 @@ if __name__ == "__main__":
 
     print(interface.setNoiseReductionLevel(NoiseReductionLevel.STRONG))
     print(interface.getNoiseReductionLevel())
-    print(genericMemories.n2D_3DNoiseReduction)
+    print(genericMemories.noiseReduction2D3D)
     print(interface.set2D3DNoiseReduction(NoiseReduction2DEnum.NR_2, NoiseReduction3DEnum.NR_3))
     print(interface.get2D3DNoiseReduction())
 
-    print(genericMemories.n2D_3DNoiseReduction)
+    print(genericMemories.noiseReduction2D3D)
     print(interface.setPictureEffect(PictureEffectEnum.BandW))
     print(interface.getPictureEffect())
 

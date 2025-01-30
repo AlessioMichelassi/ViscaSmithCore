@@ -169,7 +169,7 @@ class GammaLevelEnum(Enum):
     CINE4 = 13
     ITU709 = 14
 
-class BlackGammaRAngeEnum(Enum):
+class BlackGammaRangeEnum(Enum):
     WIDE = 0
     MIDDLE = 1
     NARROW = 2
